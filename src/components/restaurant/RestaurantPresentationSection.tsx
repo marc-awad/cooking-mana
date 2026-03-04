@@ -1,3 +1,9 @@
+import {
+  sectionCardClassName,
+  sectionContainerClassName,
+  sectionEyebrowClassName,
+} from "../ui/sectionStyles"
+
 const sectionTitle = "Présentation du restaurant"
 const sectionSubtitle = "L'élégance gastronomique au cœur de CookingMana"
 
@@ -10,13 +16,11 @@ const presentationParagraphs = [
 function RestaurantPresentationSection() {
   return (
     <section
-      className="mx-auto w-full max-w-6xl px-4 pb-12"
+      className={sectionContainerClassName}
       aria-label="Présentation du restaurant"
     >
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rose-700">
-          CookingMana
-        </p>
+      <div className={sectionCardClassName}>
+        <p className={sectionEyebrowClassName}>CookingMana</p>
         <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
           {sectionTitle}
         </h2>

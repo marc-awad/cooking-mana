@@ -1,6 +1,7 @@
 import HeroCarousel, {
   type CarouselSlide,
 } from "../../components/carousel/HeroCarousel"
+import ChefsPresentationSection from "../../components/chefs/ChefsPresentationSection"
 import WeeklyMenuTable from "../../components/menu/WeeklyMenuTable"
 import RestaurantPresentationSection from "../../components/restaurant/RestaurantPresentationSection"
 
@@ -31,6 +32,7 @@ function HomePage() {
       <HeroCarousel slides={homeSlides} />
       <WeeklyMenuTable />
       <RestaurantPresentationSection />
+      <ChefsPresentationSection />
     </>
   )
 }

@@ -8,6 +8,17 @@ type PlaceholderPageProps = {
   path: string
 }
 
+type PlaceholderRoute = {
+  path: string
+  title: string
+}
+
+const placeholderRoutes: PlaceholderRoute[] = [
+  { path: "/login", title: "Login" },
+  { path: "/register", title: "Register" },
+  { path: "/admin", title: "Admin" },
+]
+
 function PlaceholderPage({ title, path }: PlaceholderPageProps) {
   return (
     <main className="px-4 py-16">
@@ -36,18 +47,13 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/login"
-          element={<PlaceholderPage title="Login" path="/login" />}
-        />
-        <Route
-          path="/register"
-          element={<PlaceholderPage title="Register" path="/register" />}
-        />
-        <Route
-          path="/admin"
-          element={<PlaceholderPage title="Admin" path="/admin" />}
-        />
+        {placeholderRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<PlaceholderPage title={route.title} path={route.path} />}
+          />
+        ))}
       </Route>
     </Routes>
   )

@@ -1,3 +1,8 @@
+import {
+  sectionCardClassName,
+  sectionContainerClassName,
+} from "../ui/sectionStyles"
+
 type DailyMenuItem = {
   day: string
   dish: string
@@ -25,10 +30,10 @@ const fullMenuPdfPath = `/${fullMenuPdfFileName}`
 function WeeklyMenuTable() {
   return (
     <section
-      className="mx-auto w-full max-w-6xl px-4 pb-12"
+      className={sectionContainerClassName}
       aria-label="Menu de la semaine"
     >
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
+      <div className={sectionCardClassName}>
         <h2 className="text-2xl font-bold tracking-tight text-slate-900">
           Menu de la semaine
         </h2>
