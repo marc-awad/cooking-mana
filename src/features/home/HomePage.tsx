@@ -3,6 +3,7 @@ import HeroCarousel, {
 } from "../../components/carousel/HeroCarousel"
 import ChefsPresentationSection from "../../components/chefs/ChefsPresentationSection"
 import WeeklyMenuTable from "../../components/menu/WeeklyMenuTable"
+import GoogleReviewsSection from "../../components/reviews/GoogleReviewsSection"
 import RestaurantPresentationSection from "../../components/restaurant/RestaurantPresentationSection"
 
 const homeSlides: CarouselSlide[] = [
@@ -33,6 +34,7 @@ function HomePage() {
       <WeeklyMenuTable />
       <RestaurantPresentationSection />
       <ChefsPresentationSection />
+      <GoogleReviewsSection />
     </>
   )
 }
