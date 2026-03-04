@@ -1,6 +1,8 @@
 import { type FormEvent, useState } from "react"
 import AuthField from "./components/AuthField"
 import AuthFormContainer from "./components/AuthFormContainer"
+import { createDemoJwtToken } from "./demoJwtFactory"
+import { saveAuthToken } from "./jwtToken"
 import {
   invalidEmailMessage,
   isEmailValid,
@@ -58,7 +60,15 @@ function LoginPage() {
       return
     }
 
-    setSuccessMessage("Connexion prête côté front-end (démo).")
+    const demoToken = createDemoJwtToken({
+      subject: formData.email,
+      role: "user",
+    })
+
+    saveAuthToken(demoToken)
+    setSuccessMessage(
+      "Connexion réussie. Token JWT stocké côté front-end (démo).",
+    )
   }
 
   return (

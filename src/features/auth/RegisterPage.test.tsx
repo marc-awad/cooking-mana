@@ -1,9 +1,11 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, describe, expect, it } from "vitest"
 import RegisterPage from "./RegisterPage"
+import { authTokenStorageKey } from "./jwtToken"
 
 afterEach(() => {
   cleanup()
+  localStorage.clear()
 })
 
 describe("RegisterPage", () => {
@@ -47,7 +49,10 @@ describe("RegisterPage", () => {
     fireEvent.click(screen.getByRole("button", { name: "Créer mon compte" }))
 
     expect(
-      screen.getByText("Inscription prête côté front-end (démo)."),
+      screen.getByText(
+        "Inscription réussie. Token JWT stocké côté front-end (démo).",
+      ),
     ).toBeDefined()
+    expect(localStorage.getItem(authTokenStorageKey)).toBeTruthy()
   })
 })

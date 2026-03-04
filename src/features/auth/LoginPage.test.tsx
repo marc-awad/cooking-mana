@@ -1,9 +1,11 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, describe, expect, it } from "vitest"
 import LoginPage from "./LoginPage"
+import { authTokenStorageKey } from "./jwtToken"
 
 afterEach(() => {
   cleanup()
+  localStorage.clear()
 })
 
 describe("LoginPage", () => {
@@ -27,7 +29,10 @@ describe("LoginPage", () => {
     fireEvent.click(screen.getByRole("button", { name: "Se connecter" }))
 
     expect(
-      screen.getByText("Connexion prête côté front-end (démo)."),
+      screen.getByText(
+        "Connexion réussie. Token JWT stocké côté front-end (démo).",
+      ),
     ).toBeDefined()
+    expect(localStorage.getItem(authTokenStorageKey)).toBeTruthy()
   })
 })

@@ -3,6 +3,7 @@ import MainFooter from "./components/layout/MainFooter"
 import MainHeader from "./components/layout/MainHeader"
 import LoginPage from "./features/auth/LoginPage"
 import RegisterPage from "./features/auth/RegisterPage"
+import RequireAuth from "./features/auth/RequireAuth"
 import HomePage from "./features/home/HomePage"
 
 type PlaceholderPageProps = {
@@ -48,10 +49,12 @@ function App() {
         <Route
           path={adminPlaceholderRoute.path}
           element={
-            <PlaceholderPage
-              title={adminPlaceholderRoute.title}
-              path={adminPlaceholderRoute.path}
-            />
+            <RequireAuth>
+              <PlaceholderPage
+                title={adminPlaceholderRoute.title}
+                path={adminPlaceholderRoute.path}
+              />
+            </RequireAuth>
           }
         />
       </Route>

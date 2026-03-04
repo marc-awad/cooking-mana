@@ -1,12 +1,21 @@
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
+import { clearAuthToken, getValidAuthToken } from "../../features/auth/jwtToken"
 
 function MainHeader() {
+  const navigate = useNavigate()
+  const hasValidAuthToken = Boolean(getValidAuthToken())
+
   const navLinkClassName = ({ isActive }: { isActive: boolean }) =>
     `rounded-md px-3 py-2 text-sm font-medium transition-colors ${
       isActive
         ? "bg-rose-900 text-white"
         : "text-slate-700 hover:bg-rose-50 hover:text-rose-900"
     }`
+
+  function logoutUser() {
+    clearAuthToken()
+    navigate("/login")
+  }
 
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -31,6 +40,16 @@ function MainHeader() {
           <NavLink to="/register" className={navLinkClassName}>
             Register
           </NavLink>
+
+          {hasValidAuthToken ? (
+            <button
+              type="button"
+              onClick={logoutUser}
+              className="rounded-md bg-slate-900 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700"
+            >
+              Déconnexion
+            </button>
+          ) : null}
         </nav>
       </div>
     </header>
