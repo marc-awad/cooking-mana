@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom"
+import MainFooter from "./components/layout/MainFooter"
 import MainHeader from "./components/layout/MainHeader"
 
 type PlaceholderPageProps = {
@@ -19,9 +20,12 @@ function PlaceholderPage({ title, path }: PlaceholderPageProps) {
 
 function MainLayout() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
       <MainHeader />
-      <Outlet />
+      <div className="flex-1">
+        <Outlet />
+      </div>
+      <MainFooter />
     </div>
   )
 }
