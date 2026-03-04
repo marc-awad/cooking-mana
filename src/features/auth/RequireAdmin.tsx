@@ -2,11 +2,11 @@ import type { ReactNode } from "react"
 import { Navigate, useLocation } from "react-router-dom"
 import { getValidAuthTokenPayload } from "./jwtToken"
 
-type RequireAuthProps = {
+type RequireAdminProps = {
   children: ReactNode
 }
 
-function RequireAuth({ children }: RequireAuthProps) {
+function RequireAdmin({ children }: RequireAdminProps) {
   const location = useLocation()
   const validTokenPayload = getValidAuthTokenPayload()
 
@@ -14,7 +14,11 @@ function RequireAuth({ children }: RequireAuthProps) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />
   }
 
+  if (validTokenPayload.role !== "admin") {
+    return <Navigate to="/" replace />
+  }
+
   return children
 }
 
-export default RequireAuth
+export default RequireAdmin

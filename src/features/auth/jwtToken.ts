@@ -1,6 +1,8 @@
+export type AuthRole = "user" | "admin"
+
 export type AuthTokenPayload = {
   sub: string
-  role: string
+  role: AuthRole
   iat: number
   exp: number
 }
@@ -69,4 +71,24 @@ export function getValidAuthToken() {
   }
 
   return token
+}
+
+export function getValidAuthTokenPayload() {
+  const token = getValidAuthToken()
+
+  if (!token) {
+    return null
+  }
+
+  return parseAuthTokenPayload(token)
+}
+
+export function hasRequiredRole(requiredRole: AuthRole) {
+  const payload = getValidAuthTokenPayload()
+
+  if (!payload) {
+    return false
+  }
+
+  return payload.role === requiredRole
 }

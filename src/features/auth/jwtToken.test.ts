@@ -4,6 +4,7 @@ import {
   authTokenStorageKey,
   clearAuthToken,
   getAuthToken,
+  hasRequiredRole,
   getValidAuthToken,
   isAuthTokenExpired,
   parseAuthTokenPayload,
@@ -42,5 +43,17 @@ describe("jwtToken", () => {
     expect(isAuthTokenExpired(expiredToken)).toBe(true)
     expect(getValidAuthToken()).toBeNull()
     expect(localStorage.getItem(authTokenStorageKey)).toBeNull()
+  })
+
+  it("checks required role from valid token payload", () => {
+    const userToken = createDemoJwtToken({
+      subject: "user@example.com",
+      role: "user",
+    })
+
+    saveAuthToken(userToken)
+
+    expect(hasRequiredRole("user")).toBe(true)
+    expect(hasRequiredRole("admin")).toBe(false)
   })
 })

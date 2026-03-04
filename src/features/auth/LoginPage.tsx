@@ -21,6 +21,13 @@ const initialLoginFormData: LoginFormData = {
   password: "",
 }
 
+function getRoleFromEmail(email: string) {
+  const trimmedEmail = email.trim().toLowerCase()
+  const adminEmailSuffix = "@admin.cookingmana"
+
+  return trimmedEmail.endsWith(adminEmailSuffix) ? "admin" : "user"
+}
+
 function validateLoginForm(formData: LoginFormData): LoginFormErrors {
   const errors: LoginFormErrors = {}
 
@@ -62,7 +69,7 @@ function LoginPage() {
 
     const demoToken = createDemoJwtToken({
       subject: formData.email,
-      role: "user",
+      role: getRoleFromEmail(formData.email),
     })
 
     saveAuthToken(demoToken)

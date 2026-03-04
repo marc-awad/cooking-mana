@@ -1,8 +1,8 @@
-import type { AuthTokenPayload } from "./jwtToken"
+import type { AuthRole, AuthTokenPayload } from "./jwtToken"
 
 type DemoTokenInput = {
   subject: string
-  role: "user" | "admin"
+  role: AuthRole
   lifetimeInSeconds?: number
 }
 
