@@ -17,5 +17,11 @@ describe("WeeklyMenuTable", () => {
     expect(screen.getByRole("rowheader", { name: "Mercredi" })).toBeDefined()
     expect(screen.getByRole("rowheader", { name: "Jeudi" })).toBeDefined()
     expect(screen.getByRole("rowheader", { name: "Vendredi" })).toBeDefined()
+
+    const pdfLink = screen.getByRole("link", {
+      name: "Voir le menu complet (PDF)",
+    })
+
+    expect(pdfLink.getAttribute("href")).toBe("/cookingmana-menu.pdf")
   })
 })

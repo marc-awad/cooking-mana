@@ -19,6 +19,8 @@ const weekdayMenu: DailyMenuItem[] = [
 
 const menuAvailabilityMessage =
   "Le menu du jour est disponible uniquement en semaine durant le midi."
+const fullMenuPdfFileName = "cookingmana-menu.pdf"
+const fullMenuPdfPath = `/${fullMenuPdfFileName}`
 
 function WeeklyMenuTable() {
   return (
@@ -31,6 +33,18 @@ function WeeklyMenuTable() {
           Menu de la semaine
         </h2>
         <p className="mt-2 text-sm text-slate-600">{menuAvailabilityMessage}</p>
+
+        <div className="mt-4">
+          <a
+            href={fullMenuPdfPath}
+            target="_blank"
+            rel="noopener noreferrer"
+            download={fullMenuPdfFileName}
+            className="inline-flex items-center rounded-lg bg-rose-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-800"
+          >
+            Voir le menu complet (PDF)
+          </a>
+        </div>
 
         <div className="mt-6 overflow-x-auto">
           <table
