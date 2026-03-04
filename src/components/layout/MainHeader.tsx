@@ -42,6 +42,12 @@ function MainHeader() {
           </NavLink>
 
           {hasValidAuthToken ? (
+            <NavLink to="/profile" className={navLinkClassName}>
+              Profil
+            </NavLink>
+          ) : null}
+
+          {hasValidAuthToken ? (
             <button
               type="button"
               onClick={logoutUser}
