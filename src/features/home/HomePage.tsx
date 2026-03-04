@@ -1,6 +1,7 @@
 import HeroCarousel, {
   type CarouselSlide,
 } from "../../components/carousel/HeroCarousel"
+import WeeklyMenuTable from "../../components/menu/WeeklyMenuTable"
 
 const homeSlides: CarouselSlide[] = [
   {
@@ -24,7 +25,12 @@ const homeSlides: CarouselSlide[] = [
 ]
 
 function HomePage() {
-  return <HeroCarousel slides={homeSlides} />
+  return (
+    <>
+      <HeroCarousel slides={homeSlides} />
+      <WeeklyMenuTable />
+    </>
+  )
 }
 
 export default HomePage
