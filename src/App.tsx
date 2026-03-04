@@ -1,6 +1,7 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import MainFooter from "./components/layout/MainFooter"
 import MainHeader from "./components/layout/MainHeader"
+import HomePage from "./features/home/HomePage"
 
 type PlaceholderPageProps = {
   title: string
@@ -34,10 +35,7 @@ function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route
-          path="/"
-          element={<PlaceholderPage title="Accueil" path="/" />}
-        />
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
           element={<PlaceholderPage title="Login" path="/login" />}
