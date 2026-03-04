@@ -1,6 +1,8 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import MainFooter from "./components/layout/MainFooter"
 import MainHeader from "./components/layout/MainHeader"
+import LoginPage from "./features/auth/LoginPage"
+import RegisterPage from "./features/auth/RegisterPage"
 import HomePage from "./features/home/HomePage"
 
 type PlaceholderPageProps = {
@@ -8,16 +10,10 @@ type PlaceholderPageProps = {
   path: string
 }
 
-type PlaceholderRoute = {
-  path: string
-  title: string
+const adminPlaceholderRoute = {
+  path: "/admin",
+  title: "Admin",
 }
-
-const placeholderRoutes: PlaceholderRoute[] = [
-  { path: "/login", title: "Login" },
-  { path: "/register", title: "Register" },
-  { path: "/admin", title: "Admin" },
-]
 
 function PlaceholderPage({ title, path }: PlaceholderPageProps) {
   return (
@@ -47,13 +43,17 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
-        {placeholderRoutes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={<PlaceholderPage title={route.title} path={route.path} />}
-          />
-        ))}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path={adminPlaceholderRoute.path}
+          element={
+            <PlaceholderPage
+              title={adminPlaceholderRoute.title}
+              path={adminPlaceholderRoute.path}
+            />
+          }
+        />
       </Route>
     </Routes>
   )
