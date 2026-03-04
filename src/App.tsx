@@ -1,23 +1,38 @@
-import { useState } from "react"
+import { Routes, Route } from "react-router-dom"
 
-function App() {
-  const [count, setCount] = useState(0)
+type PlaceholderPageProps = {
+  title: string
+  path: string
+}
 
+function PlaceholderPage({ title, path }: PlaceholderPageProps) {
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-16 text-slate-900">
       <div className="mx-auto max-w-xl rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
-        <h1 className="text-3xl font-bold tracking-tight">
-          Vite + React + TypeScript + Tailwind
-        </h1>
-        <p className="mt-3 text-slate-600">Ton projet est prêt ✅</p>
-        <button
-          onClick={() => setCount((current) => current + 1)}
-          className="mt-6 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
-        >
-          count is {count}
-        </button>
+        <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
+        <p className="mt-3 text-slate-600">Route active: {path}</p>
       </div>
     </main>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<PlaceholderPage title="Accueil" path="/" />} />
+      <Route
+        path="/login"
+        element={<PlaceholderPage title="Login" path="/login" />}
+      />
+      <Route
+        path="/register"
+        element={<PlaceholderPage title="Register" path="/register" />}
+      />
+      <Route
+        path="/admin"
+        element={<PlaceholderPage title="Admin" path="/admin" />}
+      />
+    </Routes>
   )
 }
 
