@@ -2,6 +2,7 @@ import HeroCarousel, {
   type CarouselSlide,
 } from "../../components/carousel/HeroCarousel"
 import WeeklyMenuTable from "../../components/menu/WeeklyMenuTable"
+import RestaurantPresentationSection from "../../components/restaurant/RestaurantPresentationSection"
 
 const homeSlides: CarouselSlide[] = [
   {
@@ -29,6 +30,7 @@ function HomePage() {
     <>
       <HeroCarousel slides={homeSlides} />
       <WeeklyMenuTable />
+      <RestaurantPresentationSection />
     </>
   )
 }
