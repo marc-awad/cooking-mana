@@ -12,7 +12,7 @@ describe("RestaurantPresentationSection", () => {
 
     expect(
       screen.getByText(
-        "CookingMana propose une cuisine gastronomique moderne, pensée autour de produits frais et de saison.",
+        "Cookingmama propose une cuisine gastronomique moderne, pensée autour de produits frais et de saison.",
       ),
     ).toBeDefined()
   })

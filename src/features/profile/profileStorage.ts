@@ -5,7 +5,7 @@ export type UserProfile = {
   preferredLanguage: "FR" | "EN" | "ES"
 }
 
-const profileStoragePrefix = "cookingmana.user.profile"
+const profileStoragePrefix = "cookingmama.user.profile"
 
 function buildProfileStorageKey(email: string) {
   return `${profileStoragePrefix}.${email.toLowerCase()}`

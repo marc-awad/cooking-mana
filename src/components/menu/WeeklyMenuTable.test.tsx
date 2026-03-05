@@ -22,6 +22,6 @@ describe("WeeklyMenuTable", () => {
       name: "Voir le menu complet (PDF)",
     })
 
-    expect(pdfLink.getAttribute("href")).toBe("/cookingmana-menu.pdf")
+    expect(pdfLink.getAttribute("href")).toBe("/cookingmama-menu.pdf")
   })
 })

@@ -9,7 +9,23 @@ type DailyMenuItem = {
   dish: string
 }
 
-const fullMenuPdfFileName = "cookingmana-menu.pdf"
+const weekdayMenu: DailyMenuItem[] = [
+  { day: "Lundi", dish: "Suprême de volaille, purée de panais et jus réduit" },
+  { day: "Mardi", dish: "Risotto crémeux aux cèpes et copeaux de parmesan" },
+  { day: "Mercredi", dish: "Saumon rôti, légumes glacés et beurre citronné" },
+  {
+    day: "Jeudi",
+    dish: "Bœuf braisé, écrasé de pommes de terre à l'huile d'olive",
+  },
+  {
+    day: "Vendredi",
+    dish: "Pavé de cabillaud, quinoa aux herbes et sauce vierge",
+  },
+]
+
+const menuAvailabilityMessage =
+  "Le menu du jour est disponible uniquement en semaine durant le midi."
+const fullMenuPdfFileName = "cookingmama-menu.pdf"
 const fullMenuPdfPath = `/${fullMenuPdfFileName}`
 
 function WeeklyMenuTable() {

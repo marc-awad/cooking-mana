@@ -106,8 +106,8 @@ function RegisterPage() {
 
   return (
     <AuthFormContainer
-      title={t("auth.registerTitle")}
-      subtitle={t("auth.registerSubtitle")}
+      title="Inscription"
+      subtitle="Crée ton compte Cookingmama en quelques secondes."
     >
       <form className="space-y-4" onSubmit={submitRegisterForm} noValidate>
         <AuthField

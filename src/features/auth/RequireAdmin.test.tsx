@@ -62,7 +62,7 @@ describe("RequireAdmin", () => {
 
   it("renders admin content when token role is admin", () => {
     const adminToken = createDemoJwtToken({
-      subject: "admin@admin.cookingmana",
+      subject: "admin@admin.cookingmama",
       role: "admin",
     })
 

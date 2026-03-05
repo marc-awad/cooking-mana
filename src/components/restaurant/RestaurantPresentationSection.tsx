@@ -5,14 +5,14 @@ import {
   sectionEyebrowClassName,
 } from "../ui/sectionStyles"
 
-function RestaurantPresentationSection() {
-  const { t } = useTranslation()
+const sectionTitle = "Présentation du restaurant"
+const sectionSubtitle = "L'élégance gastronomique au cœur de Cookingmama"
 
-  const presentationParagraphs = [
-    t("home.restaurant.paragraphs.p1"),
-    t("home.restaurant.paragraphs.p2"),
-    t("home.restaurant.paragraphs.p3"),
-  ]
+const presentationParagraphs = [
+  "Cookingmama propose une cuisine gastronomique moderne, pensée autour de produits frais et de saison.",
+  "Notre équipe accorde une attention particulière à l'équilibre des saveurs, au dressage des assiettes et à la qualité du service en salle.",
+  "Chaque service est conçu pour offrir une expérience conviviale, raffinée et mémorable à nos clients.",
+]
 
   return (
     <section
@@ -20,7 +20,7 @@ function RestaurantPresentationSection() {
       aria-label={t("home.restaurant.ariaLabel")}
     >
       <div className={sectionCardClassName}>
-        <p className={sectionEyebrowClassName}>{t("common.appName")}</p>
+        <p className={sectionEyebrowClassName}>Cookingmama</p>
         <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
           {t("home.restaurant.title")}
         </h2>
