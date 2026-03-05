@@ -1,31 +1,31 @@
+import { useTranslation } from "react-i18next"
 import {
   sectionCardClassName,
   sectionContainerClassName,
   sectionEyebrowClassName,
 } from "../ui/sectionStyles"
 
-const sectionTitle = "Présentation du restaurant"
-const sectionSubtitle = "L'élégance gastronomique au cœur de CookingMana"
-
-const presentationParagraphs = [
-  "CookingMana propose une cuisine gastronomique moderne, pensée autour de produits frais et de saison.",
-  "Notre équipe accorde une attention particulière à l'équilibre des saveurs, au dressage des assiettes et à la qualité du service en salle.",
-  "Chaque service est conçu pour offrir une expérience conviviale, raffinée et mémorable à nos clients.",
-]
-
 function RestaurantPresentationSection() {
+  const { t } = useTranslation()
+
+  const presentationParagraphs = [
+    t("home.restaurant.paragraphs.p1"),
+    t("home.restaurant.paragraphs.p2"),
+    t("home.restaurant.paragraphs.p3"),
+  ]
+
   return (
     <section
       className={sectionContainerClassName}
-      aria-label="Présentation du restaurant"
+      aria-label={t("home.restaurant.ariaLabel")}
     >
       <div className={sectionCardClassName}>
-        <p className={sectionEyebrowClassName}>CookingMana</p>
+        <p className={sectionEyebrowClassName}>{t("common.appName")}</p>
         <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
-          {sectionTitle}
+          {t("home.restaurant.title")}
         </h2>
-        <p className="mt-2 text-sm font-medium text-slate-700">
-          {sectionSubtitle}
+        <p className="mt-2 text-sm text-slate-600">
+          {t("home.restaurant.subtitle")}
         </p>
 
         <div className="mt-4 space-y-3 text-sm leading-6 text-slate-700">
