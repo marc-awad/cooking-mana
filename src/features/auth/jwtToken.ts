@@ -7,7 +7,7 @@ export type AuthTokenPayload = {
   exp: number
 }
 
-export const authTokenStorageKey = "cookingmana.auth.token"
+export const authTokenStorageKey = "cookingmama.auth.token"
 
 export function saveAuthToken(token: string) {
   localStorage.setItem(authTokenStorageKey, token)

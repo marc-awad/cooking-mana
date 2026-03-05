@@ -53,7 +53,7 @@ function HeroCarousel({ slides }: HeroCarouselProps) {
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
         <div className="rounded-xl bg-gradient-to-r from-rose-900 via-rose-800 to-amber-600 px-6 py-16 text-white md:px-10">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-200">
-            CookingMana
+            Cookingmama
           </p>
           <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">
             {activeSlide.title}

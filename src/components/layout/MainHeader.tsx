@@ -24,7 +24,7 @@ function MainHeader() {
           to="/"
           className="text-lg font-semibold tracking-wide text-rose-900"
         >
-          CookingMana
+          Cookingmama
         </Link>
 
         <nav className="flex items-center gap-2">

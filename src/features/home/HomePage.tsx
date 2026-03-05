@@ -23,7 +23,7 @@ const homeSlides: CarouselSlide[] = [
     id: "booking-invitation",
     title: "Réservez votre table en quelques clics",
     description:
-      "Planifiez votre prochaine soirée au restaurant CookingMana et profitez d'un service d'exception.",
+      "Planifiez votre prochaine soirée au restaurant Cookingmama et profitez d'un service d'exception.",
   },
 ]
 

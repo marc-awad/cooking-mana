@@ -2,7 +2,7 @@ import fs from "node:fs"
 import path from "node:path"
 import PDFDocument from "pdfkit"
 
-const outputPath = path.resolve("public", "cookingmana-menu.pdf")
+const outputPath = path.resolve("public", "cookingmama-menu.pdf")
 
 fs.mkdirSync(path.dirname(outputPath), { recursive: true })
 
@@ -13,7 +13,7 @@ document.pipe(stream)
 document
   .fontSize(24)
   .fillColor("#7f1d1d")
-  .text("CookingMana", { align: "left" })
+  .text("Cookingmama", { align: "left" })
   .moveDown(0.25)
 
 document
@@ -68,7 +68,7 @@ for (const section of sections) {
 document
   .fontSize(10)
   .fillColor("#6b7280")
-  .text("Document de démonstration - CookingMana", { align: "center" })
+  .text("Document de démonstration - Cookingmama", { align: "center" })
 
 document.end()
 

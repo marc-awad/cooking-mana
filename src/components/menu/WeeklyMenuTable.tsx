@@ -24,7 +24,7 @@ const weekdayMenu: DailyMenuItem[] = [
 
 const menuAvailabilityMessage =
   "Le menu du jour est disponible uniquement en semaine durant le midi."
-const fullMenuPdfFileName = "cookingmana-menu.pdf"
+const fullMenuPdfFileName = "cookingmama-menu.pdf"
 const fullMenuPdfPath = `/${fullMenuPdfFileName}`
 
 function WeeklyMenuTable() {

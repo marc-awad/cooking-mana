@@ -97,7 +97,7 @@ function RegisterPage() {
   return (
     <AuthFormContainer
       title="Inscription"
-      subtitle="Crée ton compte CookingMana en quelques secondes."
+      subtitle="Crée ton compte Cookingmama en quelques secondes."
     >
       <form className="space-y-4" onSubmit={submitRegisterForm} noValidate>
         <AuthField

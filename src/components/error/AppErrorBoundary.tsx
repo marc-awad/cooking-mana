@@ -34,7 +34,7 @@ class AppErrorBoundary extends Component<
             </h1>
             <p className="mt-3 text-slate-600">
               Merci de recharger la page. Si le problème persiste, contactez
-              l'équipe CookingMana.
+              l'équipe Cookingmama.
             </p>
           </div>
         </main>

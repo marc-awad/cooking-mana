@@ -11,7 +11,7 @@ describe("MainFooter", () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByText(/CookingMana/)).toBeDefined()
+    expect(screen.getByText(/Cookingmama/)).toBeDefined()
     expect(screen.getByRole("link", { name: "Accueil" })).toBeDefined()
     expect(screen.getByRole("link", { name: "Login" })).toBeDefined()
     expect(screen.getByRole("link", { name: "Register" })).toBeDefined()

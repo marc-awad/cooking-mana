@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import AuthField from "./components/AuthField"
 import AuthFormContainer from "./components/AuthFormContainer"
 import { createDemoJwtToken } from "./demoJwtFactory"
@@ -23,8 +24,7 @@ const initialLoginFormData: LoginFormData = {
 
 function getRoleFromEmail(email: string) {
   const trimmedEmail = email.trim().toLowerCase()
-  const adminEmailSuffix = "@admin.cookingmana"
-
+  const adminEmailSuffix = "@admin.cookingmama"
   return trimmedEmail.endsWith(adminEmailSuffix) ? "admin" : "user"
 }
 
@@ -47,7 +47,11 @@ function validateLoginForm(formData: LoginFormData): LoginFormErrors {
 function LoginPage() {
   const [formData, setFormData] = useState<LoginFormData>(initialLoginFormData)
   const [formErrors, setFormErrors] = useState<LoginFormErrors>({})
-  const [successMessage, setSuccessMessage] = useState("")
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  // Redirige vers la page demandée avant le login, sinon vers l'accueil
+  const redirectPath = (location.state as { from?: string })?.from ?? "/"
 
   function updateField(fieldName: string, value: string) {
     setFormData((currentFormData) => ({
@@ -62,26 +66,23 @@ function LoginPage() {
     const nextErrors = validateLoginForm(formData)
     setFormErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length > 0) {
-      setSuccessMessage("")
-      return
-    }
+    if (Object.keys(nextErrors).length > 0) return
+
+    const role = getRoleFromEmail(formData.email)
 
     const demoToken = createDemoJwtToken({
       subject: formData.email,
-      role: getRoleFromEmail(formData.email),
+      role,
     })
 
     saveAuthToken(demoToken)
-    setSuccessMessage(
-      "Connexion réussie. Token JWT stocké côté front-end (démo).",
-    )
+    navigate(redirectPath, { replace: true })
   }
 
   return (
     <AuthFormContainer
       title="Connexion"
-      subtitle="Connecte-toi à ton espace CookingMana."
+      subtitle="Connecte-toi à ton espace Cookingmama."
     >
       <form className="space-y-4" onSubmit={submitLoginForm} noValidate>
         <AuthField
@@ -112,12 +113,6 @@ function LoginPage() {
         >
           Se connecter
         </button>
-
-        {successMessage ? (
-          <p className="text-sm font-medium text-emerald-700">
-            {successMessage}
-          </p>
-        ) : null}
       </form>
     </AuthFormContainer>
   )

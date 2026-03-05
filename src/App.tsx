@@ -5,29 +5,15 @@ import LoginPage from "./features/auth/LoginPage"
 import RegisterPage from "./features/auth/RegisterPage"
 import RequireAdmin from "./features/auth/RequireAdmin"
 import RequireAuth from "./features/auth/RequireAuth"
+import AdminLayout from "./features/admin/layout/AdminLayout"
+import AdminDashboardPage from "./features/admin/dashboard/AdminDashboardPage"
+import AdminProductsPage from "./features/admin/products/AdminProductsPage"
+import AdminCategoriesPage from "./features/admin/categories/AdminCategoriesPage"
+import AdminUsersPage from "./features/admin/users/AdminUsersPage"
+import AdminReservationsPage from "./features/admin/reservations/AdminReservationsPage"
+import AdminOrdersPage from "./features/admin/orders/AdminOrdersPage"
 import HomePage from "./features/home/HomePage"
 import ProfilePage from "./features/profile/ProfilePage"
-
-type PlaceholderPageProps = {
-  title: string
-  path: string
-}
-
-const adminPlaceholderRoute = {
-  path: "/admin",
-  title: "Admin",
-}
-
-function PlaceholderPage({ title, path }: PlaceholderPageProps) {
-  return (
-    <main className="px-4 py-16">
-      <div className="mx-auto max-w-xl rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
-        <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
-        <p className="mt-3 text-slate-600">Route active: {path}</p>
-      </div>
-    </main>
-  )
-}
 
 function MainLayout() {
   return (
@@ -44,6 +30,7 @@ function MainLayout() {
 function App() {
   return (
     <Routes>
+      {/* Routes publiques avec header/footer */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -56,17 +43,23 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route
-          path={adminPlaceholderRoute.path}
-          element={
-            <RequireAdmin>
-              <PlaceholderPage
-                title={adminPlaceholderRoute.title}
-                path={adminPlaceholderRoute.path}
-              />
-            </RequireAdmin>
-          }
-        />
+      </Route>
+
+      {/* Routes admin — sans MainLayout, avec son propre layout */}
+      <Route
+        path="/admin"
+        element={
+          <RequireAdmin>
+            <AdminLayout />
+          </RequireAdmin>
+        }
+      >
+        <Route index element={<AdminDashboardPage />} />
+        <Route path="products" element={<AdminProductsPage />} />
+        <Route path="categories" element={<AdminCategoriesPage />} />
+        <Route path="users" element={<AdminUsersPage />} />
+        <Route path="reservations" element={<AdminReservationsPage />} />
+        <Route path="orders" element={<AdminOrdersPage />} />
       </Route>
     </Routes>
   )
