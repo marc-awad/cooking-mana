@@ -4,11 +4,7 @@ import AuthField from "./components/AuthField"
 import AuthFormContainer from "./components/AuthFormContainer"
 import { createDemoJwtToken } from "./demoJwtFactory"
 import { saveAuthToken } from "./jwtToken"
-import {
-  invalidEmailMessage,
-  isEmailValid,
-  requiredFieldMessage,
-} from "./authValidation"
+import { isEmailValid } from "./authValidation"
 
 type LoginFormData = {
   email: string
@@ -28,23 +24,27 @@ function getRoleFromEmail(email: string) {
   return trimmedEmail.endsWith(adminEmailSuffix) ? "admin" : "user"
 }
 
-function validateLoginForm(formData: LoginFormData): LoginFormErrors {
+function validateLoginForm(
+  formData: LoginFormData,
+  messages: { requiredField: string; invalidEmail: string },
+): LoginFormErrors {
   const errors: LoginFormErrors = {}
 
   if (!formData.email.trim()) {
-    errors.email = requiredFieldMessage
+    errors.email = messages.requiredField
   } else if (!isEmailValid(formData.email)) {
-    errors.email = invalidEmailMessage
+    errors.email = messages.invalidEmail
   }
 
   if (!formData.password.trim()) {
-    errors.password = requiredFieldMessage
+    errors.password = messages.requiredField
   }
 
   return errors
 }
 
 function LoginPage() {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState<LoginFormData>(initialLoginFormData)
   const [formErrors, setFormErrors] = useState<LoginFormErrors>({})
   const navigate = useNavigate()
@@ -63,7 +63,10 @@ function LoginPage() {
   function submitLoginForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const nextErrors = validateLoginForm(formData)
+    const nextErrors = validateLoginForm(formData, {
+      requiredField: t("auth.requiredField"),
+      invalidEmail: t("auth.invalidEmail"),
+    })
     setFormErrors(nextErrors)
 
     if (Object.keys(nextErrors).length > 0) return
@@ -88,7 +91,7 @@ function LoginPage() {
         <AuthField
           id="login-email"
           name="email"
-          label="Email"
+          label={t("auth.email")}
           type="email"
           value={formData.email}
           autoComplete="email"
@@ -99,7 +102,7 @@ function LoginPage() {
         <AuthField
           id="login-password"
           name="password"
-          label="Mot de passe"
+          label={t("auth.password")}
           type="password"
           value={formData.password}
           autoComplete="current-password"
@@ -111,7 +114,7 @@ function LoginPage() {
           type="submit"
           className="w-full rounded-lg bg-rose-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-800"
         >
-          Se connecter
+          {t("auth.signIn")}
         </button>
       </form>
     </AuthFormContainer>

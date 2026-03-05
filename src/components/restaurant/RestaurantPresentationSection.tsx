@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import {
   sectionCardClassName,
   sectionContainerClassName,
@@ -13,19 +14,18 @@ const presentationParagraphs = [
   "Chaque service est conçu pour offrir une expérience conviviale, raffinée et mémorable à nos clients.",
 ]
 
-function RestaurantPresentationSection() {
   return (
     <section
       className={sectionContainerClassName}
-      aria-label="Présentation du restaurant"
+      aria-label={t("home.restaurant.ariaLabel")}
     >
       <div className={sectionCardClassName}>
         <p className={sectionEyebrowClassName}>Cookingmama</p>
         <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
-          {sectionTitle}
+          {t("home.restaurant.title")}
         </h2>
-        <p className="mt-2 text-sm font-medium text-slate-700">
-          {sectionSubtitle}
+        <p className="mt-2 text-sm text-slate-600">
+          {t("home.restaurant.subtitle")}
         </p>
 
         <div className="mt-4 space-y-3 text-sm leading-6 text-slate-700">

@@ -3,6 +3,7 @@ import {
   sectionContainerClassName,
   sectionEyebrowClassName,
 } from "../ui/sectionStyles"
+import { useTranslation } from "react-i18next"
 
 type ChefProfile = {
   name: string
@@ -10,31 +11,31 @@ type ChefProfile = {
   signature: string
 }
 
-const chefsSectionTitle = "Présentation des chefs"
-
-const chefProfiles: ChefProfile[] = [
-  {
-    name: "Chef Antoine Morel",
-    role: "Chef Exécutif",
-    signature: "Cuisine française contemporaine et jus de caractère",
-  },
-  {
-    name: "Cheffe Lina Caron",
-    role: "Cheffe Pâtissière",
-    signature: "Desserts équilibrés autour des fruits et des textures",
-  },
-]
-
 function ChefsPresentationSection() {
+  const { t } = useTranslation()
+
+  const chefProfiles: ChefProfile[] = [
+    {
+      name: t("home.chefs.profiles.antoine.name"),
+      role: t("home.chefs.profiles.antoine.role"),
+      signature: t("home.chefs.profiles.antoine.signature"),
+    },
+    {
+      name: t("home.chefs.profiles.lina.name"),
+      role: t("home.chefs.profiles.lina.role"),
+      signature: t("home.chefs.profiles.lina.signature"),
+    },
+  ]
+
   return (
     <section
       className={sectionContainerClassName}
-      aria-label="Présentation des chefs"
+      aria-label={t("home.chefs.ariaLabel")}
     >
       <div className={sectionCardClassName}>
-        <p className={sectionEyebrowClassName}>Équipe culinaire</p>
+        <p className={sectionEyebrowClassName}>{t("home.chefs.eyebrow")}</p>
         <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
-          {chefsSectionTitle}
+          {t("home.chefs.title")}
         </h2>
 
         <div className="mt-5 grid gap-4 md:grid-cols-2">

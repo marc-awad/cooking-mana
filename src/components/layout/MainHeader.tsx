@@ -1,8 +1,11 @@
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { clearAuthToken, getValidAuthToken } from "../../features/auth/jwtToken"
+import { useTranslation } from "react-i18next"
+import LanguageSwitcher from "./LanguageSwitcher"
 
 function MainHeader() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const hasValidAuthToken = Boolean(getValidAuthToken())
 
   const navLinkClassName = ({ isActive }: { isActive: boolean }) =>
@@ -29,23 +32,33 @@ function MainHeader() {
 
         <nav className="flex items-center gap-2">
           <NavLink to="/" className={navLinkClassName} end>
-            Accueil
+            {t("nav.home")}
           </NavLink>
+
+          {/* bouton réservation */}
+          <NavLink to="/reservation" className={navLinkClassName}>
+            Réserver
+          </NavLink>
+
           <NavLink to="/admin" className={navLinkClassName}>
-            Admin
+            {t("nav.admin")}
           </NavLink>
+
           <NavLink to="/login" className={navLinkClassName}>
-            Login
+            {t("nav.login")}
           </NavLink>
+
           <NavLink to="/register" className={navLinkClassName}>
-            Register
+            {t("nav.register")}
           </NavLink>
 
           {hasValidAuthToken ? (
             <NavLink to="/profile" className={navLinkClassName}>
-              Profil
+              {t("nav.profile")}
             </NavLink>
           ) : null}
+
+          <LanguageSwitcher />
 
           {hasValidAuthToken ? (
             <button
@@ -53,7 +66,7 @@ function MainHeader() {
               onClick={logoutUser}
               className="rounded-md bg-slate-900 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700"
             >
-              Déconnexion
+              {t("nav.logout")}
             </button>
           ) : null}
         </nav>

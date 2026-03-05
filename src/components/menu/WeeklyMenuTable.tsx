@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next"
 import {
   sectionCardClassName,
   sectionContainerClassName,
@@ -28,16 +29,43 @@ const fullMenuPdfFileName = "cookingmama-menu.pdf"
 const fullMenuPdfPath = `/${fullMenuPdfFileName}`
 
 function WeeklyMenuTable() {
+  const { t } = useTranslation()
+
+  const weekdayMenu: DailyMenuItem[] = [
+    {
+      day: t("home.weeklyMenu.days.monday"),
+      dish: t("home.weeklyMenu.dishes.monday"),
+    },
+    {
+      day: t("home.weeklyMenu.days.tuesday"),
+      dish: t("home.weeklyMenu.dishes.tuesday"),
+    },
+    {
+      day: t("home.weeklyMenu.days.wednesday"),
+      dish: t("home.weeklyMenu.dishes.wednesday"),
+    },
+    {
+      day: t("home.weeklyMenu.days.thursday"),
+      dish: t("home.weeklyMenu.dishes.thursday"),
+    },
+    {
+      day: t("home.weeklyMenu.days.friday"),
+      dish: t("home.weeklyMenu.dishes.friday"),
+    },
+  ]
+
   return (
     <section
       className={sectionContainerClassName}
-      aria-label="Menu de la semaine"
+      aria-label={t("home.weeklyMenu.ariaLabel")}
     >
       <div className={sectionCardClassName}>
         <h2 className="text-2xl font-bold tracking-tight text-slate-900">
-          Menu de la semaine
+          {t("home.weeklyMenu.title")}
         </h2>
-        <p className="mt-2 text-sm text-slate-600">{menuAvailabilityMessage}</p>
+        <p className="mt-2 text-sm text-slate-600">
+          {t("home.weeklyMenu.availability")}
+        </p>
 
         <div className="mt-4">
           <a
@@ -47,14 +75,14 @@ function WeeklyMenuTable() {
             download={fullMenuPdfFileName}
             className="inline-flex items-center rounded-lg bg-rose-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-800"
           >
-            Voir le menu complet (PDF)
+            {t("home.weeklyMenu.fullMenuPdf")}
           </a>
         </div>
 
         <div className="mt-6 overflow-x-auto">
           <table
             className="min-w-full border-collapse text-left"
-            aria-label="Tableau des plats par jour"
+            aria-label={t("home.weeklyMenu.tableAria")}
           >
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50">
@@ -62,13 +90,13 @@ function WeeklyMenuTable() {
                   scope="col"
                   className="px-4 py-3 text-sm font-semibold text-slate-700"
                 >
-                  Jour
+                  {t("home.weeklyMenu.dayHeader")}
                 </th>
                 <th
                   scope="col"
                   className="px-4 py-3 text-sm font-semibold text-slate-700"
                 >
-                  Plat du jour
+                  {t("home.weeklyMenu.dishHeader")}
                 </th>
               </tr>
             </thead>

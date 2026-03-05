@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import {
   sectionCardClassName,
   sectionContainerClassName,
@@ -11,37 +12,6 @@ type GoogleReview = {
   rating: 5 | 4
   review: string
 }
-
-const googleReviews: GoogleReview[] = [
-  {
-    id: "review-1",
-    fullName: "Sophie Martin",
-    rating: 5,
-    review:
-      "Une expérience magnifique du début à la fin. Les saveurs sont précises et le service est irréprochable.",
-  },
-  {
-    id: "review-2",
-    fullName: "Thomas Bernard",
-    rating: 5,
-    review:
-      "Cadre élégant, équipe attentionnée et menu parfaitement maîtrisé. Je recommande pour une soirée spéciale.",
-  },
-  {
-    id: "review-3",
-    fullName: "Camille Dubois",
-    rating: 4,
-    review:
-      "Très belle découverte. Les plats sont fins et bien présentés, avec une excellente sélection de vins.",
-  },
-  {
-    id: "review-4",
-    fullName: "Lucas Petit",
-    rating: 5,
-    review:
-      "Cuisine inventive et gourmande. Mention spéciale pour le dessert signature et l'accueil chaleureux.",
-  },
-]
 
 const firstReviewIndex = 0
 const step = 1
@@ -59,6 +29,35 @@ function renderStars(rating: number) {
 }
 
 function GoogleReviewsSection() {
+  const { t } = useTranslation()
+
+  const googleReviews: GoogleReview[] = [
+    {
+      id: "review-1",
+      fullName: t("home.reviews.items.sophie.fullName"),
+      rating: 5,
+      review: t("home.reviews.items.sophie.review"),
+    },
+    {
+      id: "review-2",
+      fullName: t("home.reviews.items.thomas.fullName"),
+      rating: 5,
+      review: t("home.reviews.items.thomas.review"),
+    },
+    {
+      id: "review-3",
+      fullName: t("home.reviews.items.camille.fullName"),
+      rating: 4,
+      review: t("home.reviews.items.camille.review"),
+    },
+    {
+      id: "review-4",
+      fullName: t("home.reviews.items.lucas.fullName"),
+      rating: 5,
+      review: t("home.reviews.items.lucas.review"),
+    },
+  ]
+
   const [activeReviewIndex, setActiveReviewIndex] = useState(firstReviewIndex)
   const activeReview = googleReviews[activeReviewIndex]
 
@@ -79,15 +78,21 @@ function GoogleReviewsSection() {
   }
 
   return (
-    <section className={sectionContainerClassName} aria-label="Avis Google">
+    <section
+      className={sectionContainerClassName}
+      aria-label={t("home.reviews.ariaLabel")}
+    >
       <div className={sectionCardClassName}>
-        <p className={sectionEyebrowClassName}>Avis clients</p>
+        <p className={sectionEyebrowClassName}>{t("home.reviews.eyebrow")}</p>
         <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-900">
-          Avis Google
+          {t("home.reviews.title")}
         </h2>
 
         <article className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-5">
-          <p className="text-lg tracking-wide text-amber-500" aria-label="Note">
+          <p
+            className="text-lg tracking-wide text-amber-500"
+            aria-label={t("home.reviews.ratingLabel")}
+          >
             {renderStars(activeReview.rating)}
           </p>
           <h3 className="mt-2 text-base font-semibold text-slate-900">
@@ -103,14 +108,14 @@ function GoogleReviewsSection() {
             type="button"
             onClick={showPreviousReview}
             className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
-            aria-label="Avis précédent"
+            aria-label={t("home.reviews.previous")}
           >
-            Précédent
+            {t("home.reviews.previous")}
           </button>
 
           <div
             className="flex items-center gap-2"
-            aria-label="Navigation des avis"
+            aria-label={t("home.reviews.navigation")}
           >
             {googleReviews.map((review, index) => {
               const isActiveReview = index === activeReviewIndex
@@ -125,7 +130,9 @@ function GoogleReviewsSection() {
                       ? "bg-rose-900"
                       : "bg-slate-300 hover:bg-slate-400"
                   }`}
-                  aria-label={`Aller à l'avis ${index + 1}`}
+                  aria-label={t("home.reviews.goToReview", {
+                    index: index + 1,
+                  })}
                   aria-current={isActiveReview}
                 />
               )
@@ -136,9 +143,9 @@ function GoogleReviewsSection() {
             type="button"
             onClick={showNextReview}
             className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
-            aria-label="Avis suivant"
+            aria-label={t("home.reviews.next")}
           >
-            Suivant
+            {t("home.reviews.next")}
           </button>
         </div>
       </div>
