@@ -1,17 +1,22 @@
-import { render, screen } from "@testing-library/react";
-import ReservationForm from "./ReservationForm";
-import { describe, expect, it } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react"
+import { afterEach, describe, expect, it } from "vitest"
+import ReservationForm from "./ReservationForm"
+
+afterEach(() => {
+  cleanup()
+})
 
 describe("ReservationForm", () => {
   it("renders reservation title", () => {
-    render(<ReservationForm />);
+    render(<ReservationForm />)
 
-    expect(screen.getByText(/réservation/i)).toBeInTheDocument();
-  });
+    expect(screen.getByRole("heading", { name: /réservation/i })).toBeDefined()
+  })
 
   it("renders date input", () => {
-    render(<ReservationForm />);
+    const { container } = render(<ReservationForm />)
+    const dateInput = container.querySelector('input[type="date"]')
 
-    expect(screen.getByDisplayValue("")).toBeInTheDocument();
-  });
-});
+    expect(dateInput).not.toBeNull()
+  })
+})

@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { useNavigate, useLocation } from "react-router-dom"
 import AuthField from "./components/AuthField"
 import AuthFormContainer from "./components/AuthFormContainer"
@@ -84,8 +85,8 @@ function LoginPage() {
 
   return (
     <AuthFormContainer
-      title="Connexion"
-      subtitle="Connecte-toi à ton espace Cookingmama."
+      title={t("auth.loginTitle")}
+      subtitle={t("auth.loginSubtitle")}
     >
       <form className="space-y-4" onSubmit={submitLoginForm} noValidate>
         <AuthField

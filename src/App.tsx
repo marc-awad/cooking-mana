@@ -1,5 +1,4 @@
 import { Outlet, Route, Routes } from "react-router-dom"
-import { useTranslation } from "react-i18next"
 import MainFooter from "./components/layout/MainFooter"
 import MainHeader from "./components/layout/MainHeader"
 
@@ -30,13 +29,10 @@ function MainLayout() {
 }
 
 function App() {
-  const { t } = useTranslation()
-
   return (
     <Routes>
       {/* Routes publiques avec header/footer */}
       <Route element={<MainLayout />}>
-
         {/* HOME */}
         <Route path="/" element={<HomePage />} />
 

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import type { Order } from "./types/order"
-import { useOrders } from "./hooks/useOrders"
-import OrderTable from "./components/OrderTable"
+import { useOrders } from "./hooks/useOrder"
+import OrderTable from "./components/orderTable"
 import OrderForm from "./components/OrderForm"
 
 type ModalState =
@@ -60,10 +60,14 @@ export default function AdminOrdersPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
             <h2 className="mb-4 text-lg font-semibold text-slate-900">
-              {modalState.type === "create" ? "Ajouter une commande" : "Modifier la commande"}
+              {modalState.type === "create"
+                ? "Ajouter une commande"
+                : "Modifier la commande"}
             </h2>
             <OrderForm
-              initialData={modalState.type === "edit" ? modalState.order : undefined}
+              initialData={
+                modalState.type === "edit" ? modalState.order : undefined
+              }
               onSubmit={handleSubmit}
               onCancel={closeModal}
             />
