@@ -18,14 +18,11 @@ type PlaceholderPageProps = {
   path: string
 }
 
-<<<<<<< HEAD
-=======
 const adminPlaceholderRoute = {
   path: "/admin",
   titleKey: "nav.admin",
 }
 
->>>>>>> 23e78e4a24c73e476a5a9f052d80b2cfcda5944d
 function PlaceholderPage({ title, path }: PlaceholderPageProps) {
   const { t } = useTranslation()
 
@@ -96,14 +93,10 @@ function App() {
           path="/admin"
           element={
             <RequireAdmin>
-<<<<<<< HEAD
-              <PlaceholderPage title="Admin Panel" path="/admin" />
-=======
               <PlaceholderPage
                 title={t(adminPlaceholderRoute.titleKey)}
                 path={adminPlaceholderRoute.path}
               />
->>>>>>> 23e78e4a24c73e476a5a9f052d80b2cfcda5944d
             </RequireAdmin>
           }
         />
