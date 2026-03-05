@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 import HeroCarousel, {
   type CarouselSlide,
 } from "../../components/carousel/HeroCarousel"
@@ -31,6 +33,17 @@ function HomePage() {
   return (
     <>
       <HeroCarousel slides={homeSlides} />
+
+      {/* bouton réservation */}
+      <div className="flex justify-center py-10">
+        <Link
+          to="/reservation"
+          className="rounded-lg bg-rose-900 px-8 py-4 text-lg font-semibold text-white shadow-md transition hover:bg-rose-800"
+        >
+          Réserver une table
+        </Link>
+      </div>
+
       <WeeklyMenuTable />
       <RestaurantPresentationSection />
       <ChefsPresentationSection />

@@ -31,12 +31,20 @@ function MainHeader() {
           <NavLink to="/" className={navLinkClassName} end>
             Accueil
           </NavLink>
+
+          {/* bouton réservation */}
+          <NavLink to="/reservation" className={navLinkClassName}>
+            Réserver
+          </NavLink>
+
           <NavLink to="/admin" className={navLinkClassName}>
             Admin
           </NavLink>
+
           <NavLink to="/login" className={navLinkClassName}>
             Login
           </NavLink>
+
           <NavLink to="/register" className={navLinkClassName}>
             Register
           </NavLink>

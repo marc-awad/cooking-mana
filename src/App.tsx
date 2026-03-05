@@ -1,21 +1,20 @@
 import { Outlet, Route, Routes } from "react-router-dom"
 import MainFooter from "./components/layout/MainFooter"
 import MainHeader from "./components/layout/MainHeader"
+
 import LoginPage from "./features/auth/LoginPage"
 import RegisterPage from "./features/auth/RegisterPage"
 import RequireAdmin from "./features/auth/RequireAdmin"
 import RequireAuth from "./features/auth/RequireAuth"
+import ReservationForm from "./components/reservation/ReservationForm"
+
 import HomePage from "./features/home/HomePage"
 import ProfilePage from "./features/profile/ProfilePage"
 
+// placeholders pour features futures
 type PlaceholderPageProps = {
   title: string
   path: string
-}
-
-const adminPlaceholderRoute = {
-  path: "/admin",
-  title: "Admin",
 }
 
 function PlaceholderPage({ title, path }: PlaceholderPageProps) {
@@ -45,9 +44,15 @@ function App() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
+
+        {/* HOME */}
         <Route path="/" element={<HomePage />} />
+
+        {/* AUTH */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+
+        {/* PROFILE (protected) */}
         <Route
           path="/profile"
           element={
@@ -56,17 +61,39 @@ function App() {
             </RequireAuth>
           }
         />
+
+        {/* RESERVATION */}
         <Route
-          path={adminPlaceholderRoute.path}
+          path="/reservation"
+          element={
+            <RequireAuth>
+              <ReservationForm />
+            </RequireAuth>
+          }
+        />
+
+        {/* MENU PDF */}
+        <Route
+          path="/menu"
+          element={<PlaceholderPage title="Menu PDF" path="/menu" />}
+        />
+
+        {/* ADMIN */}
+        <Route
+          path="/admin"
           element={
             <RequireAdmin>
-              <PlaceholderPage
-                title={adminPlaceholderRoute.title}
-                path={adminPlaceholderRoute.path}
-              />
+              <PlaceholderPage title="Admin Panel" path="/admin" />
             </RequireAdmin>
           }
         />
+
+        {/* 404 */}
+        <Route
+          path="*"
+          element={<PlaceholderPage title="404 - Page Not Found" path="*" />}
+        />
+
       </Route>
     </Routes>
   )
