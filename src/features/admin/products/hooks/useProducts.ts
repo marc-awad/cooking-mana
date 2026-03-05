@@ -1,18 +1,14 @@
 import { useState } from "react"
 import { INITIAL_PRODUCTS } from "../data/productData"
 import type { Product } from "../types/product"
-
-// Génère un id unique simple basé sur le timestamp
-function generateId(): string {
-  return Date.now().toString()
-}
+import { generateEntityId } from "../../shared/generateEntityId"
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS)
 
   // Ajoute un nouveau produit
   function addProduct(newProduct: Omit<Product, "id">) {
-    const productWithId: Product = { ...newProduct, id: generateId() }
+    const productWithId: Product = { ...newProduct, id: generateEntityId() }
     setProducts((current) => [...current, productWithId])
   }
 
@@ -20,15 +16,15 @@ export function useProducts() {
   function updateProduct(updatedProduct: Product) {
     setProducts((current) =>
       current.map((product) =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
+        product.id === updatedProduct.id ? updatedProduct : product,
+      ),
     )
   }
 
   // Supprime un produit par son id
   function deleteProduct(productId: string) {
     setProducts((current) =>
-      current.filter((product) => product.id !== productId)
+      current.filter((product) => product.id !== productId),
     )
   }
 

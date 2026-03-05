@@ -15,11 +15,24 @@ const EMPTY_FORM: Omit<Reservation, "id"> = {
   status: "en_attente",
 }
 
+const MIN_GUESTS = 1
 const INPUT_CLASS =
   "rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 w-full"
 
-// Champ de formulaire réutilisable
-function FormField({ label, children }: { label: string; children: React.ReactNode }) {
+function parseGuestCountInput(inputValue: string) {
+  const parsedValue = Number.parseInt(inputValue, 10)
+  return Number.isInteger(parsedValue) && parsedValue >= MIN_GUESTS
+    ? parsedValue
+    : MIN_GUESTS
+}
+
+function FormField({
+  label,
+  children,
+}: {
+  label: string
+  children: React.ReactNode
+}) {
   return (
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium text-slate-700">{label}</label>
@@ -28,13 +41,19 @@ function FormField({ label, children }: { label: string; children: React.ReactNo
   )
 }
 
-// Formulaire de création et modification d'une réservation
-export default function ReservationForm({ initialData, onSubmit, onCancel }: ReservationFormProps) {
+export default function ReservationForm({
+  initialData,
+  onSubmit,
+  onCancel,
+}: ReservationFormProps) {
   const [formData, setFormData] = useState<Omit<Reservation, "id">>(
-    initialData ?? EMPTY_FORM
+    initialData ?? EMPTY_FORM,
   )
 
-  function updateField(field: keyof Omit<Reservation, "id">, value: string | number) {
+  function updateField(
+    field: keyof Omit<Reservation, "id">,
+    value: string | number,
+  ) {
     setFormData((current) => ({ ...current, [field]: value }))
   }
 
@@ -50,7 +69,7 @@ export default function ReservationForm({ initialData, onSubmit, onCancel }: Res
           className={INPUT_CLASS}
           type="text"
           value={formData.clientName}
-          onChange={(e) => updateField("clientName", e.target.value)}
+          onChange={(event) => updateField("clientName", event.target.value)}
           required
         />
       </FormField>
@@ -60,7 +79,7 @@ export default function ReservationForm({ initialData, onSubmit, onCancel }: Res
           className={INPUT_CLASS}
           type="email"
           value={formData.clientEmail}
-          onChange={(e) => updateField("clientEmail", e.target.value)}
+          onChange={(event) => updateField("clientEmail", event.target.value)}
           required
         />
       </FormField>
@@ -70,7 +89,7 @@ export default function ReservationForm({ initialData, onSubmit, onCancel }: Res
           className={INPUT_CLASS}
           type="date"
           value={formData.date}
-          onChange={(e) => updateField("date", e.target.value)}
+          onChange={(event) => updateField("date", event.target.value)}
           required
         />
       </FormField>
@@ -81,7 +100,12 @@ export default function ReservationForm({ initialData, onSubmit, onCancel }: Res
           type="number"
           min="1"
           value={formData.numberOfGuests}
-          onChange={(e) => updateField("numberOfGuests", parseInt(e.target.value))}
+          onChange={(event) =>
+            updateField(
+              "numberOfGuests",
+              parseGuestCountInput(event.target.value),
+            )
+          }
           required
         />
       </FormField>
@@ -90,7 +114,9 @@ export default function ReservationForm({ initialData, onSubmit, onCancel }: Res
         <select
           className={INPUT_CLASS}
           value={formData.status}
-          onChange={(e) => updateField("status", e.target.value as ReservationStatus)}
+          onChange={(event) =>
+            updateField("status", event.target.value as ReservationStatus)
+          }
         >
           <option value="en_attente">En attente</option>
           <option value="confirmee">Confirmée</option>

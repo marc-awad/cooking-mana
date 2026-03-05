@@ -4,7 +4,6 @@ import MainHeader from "./components/layout/MainHeader"
 
 import LoginPage from "./features/auth/LoginPage"
 import RegisterPage from "./features/auth/RegisterPage"
-import RequireAdmin from "./features/auth/RequireAdmin"
 import RequireAuth from "./features/auth/RequireAuth"
 import AdminLayout from "./features/admin/layout/AdminLayout"
 import AdminDashboardPage from "./features/admin/dashboard/AdminDashboardPage"
@@ -52,14 +51,7 @@ function App() {
       </Route>
 
       {/* Routes admin — sans MainLayout, avec son propre layout */}
-      <Route
-        path="/admin"
-        element={
-          <RequireAdmin>
-            <AdminLayout />
-          </RequireAdmin>
-        }
-      >
+      <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminDashboardPage />} />
         <Route path="products" element={<AdminProductsPage />} />
         <Route path="categories" element={<AdminCategoriesPage />} />

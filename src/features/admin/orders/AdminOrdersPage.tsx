@@ -1,7 +1,7 @@
 import { useState } from "react"
 import type { Order } from "./types/order"
 import { useOrders } from "./hooks/useOrder"
-import OrderTable from "./components/orderTable"
+import OrderTable from "./components/OrderTable"
 import OrderForm from "./components/OrderForm"
 
 type ModalState =

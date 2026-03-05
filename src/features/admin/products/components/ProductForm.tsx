@@ -16,7 +16,17 @@ const EMPTY_FORM: Omit<Product, "id"> = {
   isAvailable: true,
 }
 
-// Champ de formulaire réutilisable
+const MIN_PRICE = 0
+const INPUT_CLASS =
+  "rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+
+function parsePriceInput(inputValue: string) {
+  const parsedValue = Number(inputValue)
+  return Number.isFinite(parsedValue) && parsedValue >= MIN_PRICE
+    ? parsedValue
+    : MIN_PRICE
+}
+
 function FormField({
   label,
   children,
@@ -32,16 +42,19 @@ function FormField({
   )
 }
 
-const INPUT_CLASS =
-  "rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-
-// Formulaire de création et modification d'un produit
-export default function ProductForm({ initialData, onSubmit, onCancel }: ProductFormProps) {
+export default function ProductForm({
+  initialData,
+  onSubmit,
+  onCancel,
+}: ProductFormProps) {
   const [formData, setFormData] = useState<Omit<Product, "id">>(
-    initialData ?? EMPTY_FORM
+    initialData ?? EMPTY_FORM,
   )
 
-  function updateField(field: keyof Omit<Product, "id">, value: string | boolean | number) {
+  function updateField(
+    field: keyof Omit<Product, "id">,
+    value: string | boolean | number,
+  ) {
     setFormData((current) => ({ ...current, [field]: value }))
   }
 
@@ -57,7 +70,7 @@ export default function ProductForm({ initialData, onSubmit, onCancel }: Product
           className={INPUT_CLASS}
           type="text"
           value={formData.name}
-          onChange={(e) => updateField("name", e.target.value)}
+          onChange={(event) => updateField("name", event.target.value)}
           required
         />
       </FormField>
@@ -66,7 +79,7 @@ export default function ProductForm({ initialData, onSubmit, onCancel }: Product
         <textarea
           className={INPUT_CLASS}
           value={formData.description}
-          onChange={(e) => updateField("description", e.target.value)}
+          onChange={(event) => updateField("description", event.target.value)}
           rows={3}
           required
         />
@@ -79,7 +92,9 @@ export default function ProductForm({ initialData, onSubmit, onCancel }: Product
           step="0.01"
           min="0"
           value={formData.price}
-          onChange={(e) => updateField("price", parseFloat(e.target.value))}
+          onChange={(event) =>
+            updateField("price", parsePriceInput(event.target.value))
+          }
           required
         />
       </FormField>
@@ -89,7 +104,7 @@ export default function ProductForm({ initialData, onSubmit, onCancel }: Product
           className={INPUT_CLASS}
           type="text"
           value={formData.categoryId}
-          onChange={(e) => updateField("categoryId", e.target.value)}
+          onChange={(event) => updateField("categoryId", event.target.value)}
           required
         />
       </FormField>
@@ -99,7 +114,7 @@ export default function ProductForm({ initialData, onSubmit, onCancel }: Product
           className={INPUT_CLASS}
           type="text"
           value={formData.imageUrl}
-          onChange={(e) => updateField("imageUrl", e.target.value)}
+          onChange={(event) => updateField("imageUrl", event.target.value)}
         />
       </FormField>
 
@@ -107,7 +122,7 @@ export default function ProductForm({ initialData, onSubmit, onCancel }: Product
         <input
           type="checkbox"
           checked={formData.isAvailable}
-          onChange={(e) => updateField("isAvailable", e.target.checked)}
+          onChange={(event) => updateField("isAvailable", event.target.checked)}
           className="h-4 w-4 accent-orange-500"
         />
       </FormField>

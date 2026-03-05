@@ -1,5 +1,3 @@
-// filepath: d:\Projet Cooking-mama\cooking-mana\src\features\admin\products\AdminProductsPage.tsx
-
 import { useState } from "react"
 import type { Product } from "./types/product"
 import { useProducts } from "./hooks/useProducts"
@@ -62,10 +60,14 @@ export default function AdminProductsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
             <h2 className="mb-4 text-lg font-semibold text-slate-900">
-              {modalState.type === "create" ? "Ajouter un plat" : "Modifier le plat"}
+              {modalState.type === "create"
+                ? "Ajouter un plat"
+                : "Modifier le plat"}
             </h2>
             <ProductForm
-              initialData={modalState.type === "edit" ? modalState.product : undefined}
+              initialData={
+                modalState.type === "edit" ? modalState.product : undefined
+              }
               onSubmit={handleSubmit}
               onCancel={closeModal}
             />
