@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react"
+import i18n from "../../i18n"
 
 type AppErrorBoundaryProps = {
   children: ReactNode
@@ -30,11 +31,10 @@ class AppErrorBoundary extends Component<
         <main className="min-h-screen bg-slate-50 px-4 py-16 text-slate-900">
           <div className="mx-auto max-w-xl rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
             <h1 className="text-2xl font-bold tracking-tight">
-              Une erreur est survenue
+              {i18n.t("errorBoundary.title")}
             </h1>
             <p className="mt-3 text-slate-600">
-              Merci de recharger la page. Si le problème persiste, contactez
-              l'équipe CookingMana.
+              {i18n.t("errorBoundary.message")}
             </p>
           </div>
         </main>

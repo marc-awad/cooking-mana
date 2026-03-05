@@ -35,10 +35,10 @@ describe("HeroCarousel", () => {
   it("goes to next and previous slide", () => {
     render(<HeroCarousel slides={testSlides} />)
 
-    fireEvent.click(screen.getByRole("button", { name: "Slide suivante" }))
+    fireEvent.click(screen.getByRole("button", { name: "Suivant" }))
     expect(screen.getByText("Slide Two")).toBeDefined()
 
-    fireEvent.click(screen.getByRole("button", { name: "Slide précédente" }))
+    fireEvent.click(screen.getByRole("button", { name: "Précédent" }))
     expect(screen.getByText("Slide One")).toBeDefined()
   })
 

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 
 export type CarouselSlide = {
   id: string
@@ -22,6 +23,8 @@ function getPreviousIndex(currentIndex: number, slidesCount: number) {
 }
 
 function HeroCarousel({ slides }: HeroCarouselProps) {
+  const { t } = useTranslation()
+
   if (slides.length === 0) {
     throw new Error("HeroCarousel requires at least one slide")
   }
@@ -48,7 +51,7 @@ function HeroCarousel({ slides }: HeroCarouselProps) {
   return (
     <section
       className="mx-auto w-full max-w-6xl px-4 py-10"
-      aria-label="Carrousel de la page d'accueil"
+      aria-label={t("home.carousel.ariaLabel")}
     >
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
         <div className="rounded-xl bg-gradient-to-r from-rose-900 via-rose-800 to-amber-600 px-6 py-16 text-white md:px-10">
@@ -68,14 +71,14 @@ function HeroCarousel({ slides }: HeroCarouselProps) {
             type="button"
             onClick={showPreviousSlide}
             className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
-            aria-label="Slide précédente"
+            aria-label={t("home.carousel.previous")}
           >
-            Précédent
+            {t("home.carousel.previous")}
           </button>
 
           <div
             className="flex items-center gap-2"
-            aria-label="Navigation du carrousel"
+            aria-label={t("home.carousel.navigation")}
           >
             {slides.map((slide, index) => {
               const isActiveSlide = index === activeSlideIndex
@@ -90,7 +93,9 @@ function HeroCarousel({ slides }: HeroCarouselProps) {
                       ? "bg-rose-900"
                       : "bg-slate-300 hover:bg-slate-400"
                   }`}
-                  aria-label={`Aller au slide ${index + 1}`}
+                  aria-label={t("home.carousel.goToSlide", {
+                    index: index + 1,
+                  })}
                   aria-current={isActiveSlide}
                 />
               )
@@ -101,9 +106,9 @@ function HeroCarousel({ slides }: HeroCarouselProps) {
             type="button"
             onClick={showNextSlide}
             className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
-            aria-label="Slide suivante"
+            aria-label={t("home.carousel.next")}
           >
-            Suivant
+            {t("home.carousel.next")}
           </button>
         </div>
       </div>

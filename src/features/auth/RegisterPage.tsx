@@ -1,13 +1,12 @@
 import { type FormEvent, useState } from "react"
+import { useTranslation } from "react-i18next"
 import AuthField from "./components/AuthField"
 import AuthFormContainer from "./components/AuthFormContainer"
 import { createDemoJwtToken } from "./demoJwtFactory"
 import {
-  invalidEmailMessage,
   isEmailValid,
   isPasswordLengthValid,
   minimumPasswordLength,
-  requiredFieldMessage,
 } from "./authValidation"
 import { saveAuthToken } from "./jwtToken"
 
@@ -27,38 +26,44 @@ const initialRegisterFormData: RegisterFormData = {
   confirmPassword: "",
 }
 
-const passwordLengthMessage = `Le mot de passe doit contenir au moins ${minimumPasswordLength} caractères.`
-const passwordMismatchMessage = "Les mots de passe ne correspondent pas."
-
-function validateRegisterForm(formData: RegisterFormData): RegisterFormErrors {
+function validateRegisterForm(
+  formData: RegisterFormData,
+  messages: {
+    requiredField: string
+    invalidEmail: string
+    passwordLength: string
+    passwordMismatch: string
+  },
+): RegisterFormErrors {
   const errors: RegisterFormErrors = {}
 
   if (!formData.fullName.trim()) {
-    errors.fullName = requiredFieldMessage
+    errors.fullName = messages.requiredField
   }
 
   if (!formData.email.trim()) {
-    errors.email = requiredFieldMessage
+    errors.email = messages.requiredField
   } else if (!isEmailValid(formData.email)) {
-    errors.email = invalidEmailMessage
+    errors.email = messages.invalidEmail
   }
 
   if (!formData.password.trim()) {
-    errors.password = requiredFieldMessage
+    errors.password = messages.requiredField
   } else if (!isPasswordLengthValid(formData.password)) {
-    errors.password = passwordLengthMessage
+    errors.password = messages.passwordLength
   }
 
   if (!formData.confirmPassword.trim()) {
-    errors.confirmPassword = requiredFieldMessage
+    errors.confirmPassword = messages.requiredField
   } else if (formData.password !== formData.confirmPassword) {
-    errors.confirmPassword = passwordMismatchMessage
+    errors.confirmPassword = messages.passwordMismatch
   }
 
   return errors
 }
 
 function RegisterPage() {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState<RegisterFormData>(
     initialRegisterFormData,
   )
@@ -75,7 +80,14 @@ function RegisterPage() {
   function submitRegisterForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const nextErrors = validateRegisterForm(formData)
+    const nextErrors = validateRegisterForm(formData, {
+      requiredField: t("auth.requiredField"),
+      invalidEmail: t("auth.invalidEmail"),
+      passwordLength: t("auth.passwordMinLength", {
+        count: minimumPasswordLength,
+      }),
+      passwordMismatch: t("auth.passwordMismatch"),
+    })
     setFormErrors(nextErrors)
 
     if (Object.keys(nextErrors).length > 0) {
@@ -89,21 +101,19 @@ function RegisterPage() {
     })
 
     saveAuthToken(demoToken)
-    setSuccessMessage(
-      "Inscription réussie. Token JWT stocké côté front-end (démo).",
-    )
+    setSuccessMessage(t("auth.registerSuccess"))
   }
 
   return (
     <AuthFormContainer
-      title="Inscription"
-      subtitle="Crée ton compte CookingMana en quelques secondes."
+      title={t("auth.registerTitle")}
+      subtitle={t("auth.registerSubtitle")}
     >
       <form className="space-y-4" onSubmit={submitRegisterForm} noValidate>
         <AuthField
           id="register-fullName"
           name="fullName"
-          label="Nom complet"
+          label={t("auth.fullName")}
           type="text"
           value={formData.fullName}
           autoComplete="name"
@@ -114,7 +124,7 @@ function RegisterPage() {
         <AuthField
           id="register-email"
           name="email"
-          label="Email"
+          label={t("auth.email")}
           type="email"
           value={formData.email}
           autoComplete="email"
@@ -125,7 +135,7 @@ function RegisterPage() {
         <AuthField
           id="register-password"
           name="password"
-          label="Mot de passe"
+          label={t("auth.password")}
           type="password"
           value={formData.password}
           autoComplete="new-password"
@@ -136,7 +146,7 @@ function RegisterPage() {
         <AuthField
           id="register-confirmPassword"
           name="confirmPassword"
-          label="Confirmer le mot de passe"
+          label={t("auth.confirmPassword")}
           type="password"
           value={formData.confirmPassword}
           autoComplete="new-password"
@@ -148,7 +158,7 @@ function RegisterPage() {
           type="submit"
           className="w-full rounded-lg bg-rose-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-800"
         >
-          Créer mon compte
+          {t("auth.signUp")}
         </button>
 
         {successMessage ? (

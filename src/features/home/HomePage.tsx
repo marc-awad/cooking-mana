@@ -7,29 +7,29 @@ import ChefsPresentationSection from "../../components/chefs/ChefsPresentationSe
 import WeeklyMenuTable from "../../components/menu/WeeklyMenuTable"
 import GoogleReviewsSection from "../../components/reviews/GoogleReviewsSection"
 import RestaurantPresentationSection from "../../components/restaurant/RestaurantPresentationSection"
-
-const homeSlides: CarouselSlide[] = [
-  {
-    id: "signature-cuisine",
-    title: "Cuisine gastronomique et créative",
-    description:
-      "Découvrez une expérience culinaire raffinée pensée autour de produits de saison et d'accords subtils.",
-  },
-  {
-    id: "chef-story",
-    title: "Rencontrez notre brigade de chefs",
-    description:
-      "Une équipe passionnée qui sublime chaque assiette avec précision, exigence et élégance.",
-  },
-  {
-    id: "booking-invitation",
-    title: "Réservez votre table en quelques clics",
-    description:
-      "Planifiez votre prochaine soirée au restaurant CookingMana et profitez d'un service d'exception.",
-  },
-]
+import { useTranslation } from "react-i18next"
 
 function HomePage() {
+  const { t } = useTranslation()
+
+  const homeSlides: CarouselSlide[] = [
+    {
+      id: "signature-cuisine",
+      title: t("home.carousel.slides.signatureCuisine.title"),
+      description: t("home.carousel.slides.signatureCuisine.description"),
+    },
+    {
+      id: "chef-story",
+      title: t("home.carousel.slides.chefStory.title"),
+      description: t("home.carousel.slides.chefStory.description"),
+    },
+    {
+      id: "booking-invitation",
+      title: t("home.carousel.slides.bookingInvitation.title"),
+      description: t("home.carousel.slides.bookingInvitation.description"),
+    },
+  ]
+
   return (
     <>
       <HeroCarousel slides={homeSlides} />

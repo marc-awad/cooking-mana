@@ -1,5 +1,6 @@
 import { type FormEvent, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { getValidAuthTokenPayload } from "../auth/jwtToken"
 import {
   loadUserProfile,
@@ -11,10 +12,26 @@ type ProfileFormErrors = {
   fullName?: string
 }
 
-const requiredFieldMessage = "Ce champ est requis."
-const profileSaveSuccessMessage = "Profil mis à jour avec succès."
+function getPreferredLanguageFromI18n(
+  language: string,
+): UserProfile["preferredLanguage"] {
+  const normalizedLanguage = language.split("-")[0].toUpperCase()
 
-function getInitialProfile(tokenEmail: string): UserProfile {
+  if (normalizedLanguage === "EN") {
+    return "EN"
+  }
+
+  if (normalizedLanguage === "ES") {
+    return "ES"
+  }
+
+  return "FR"
+}
+
+function getInitialProfile(
+  tokenEmail: string,
+  preferredLanguage: UserProfile["preferredLanguage"],
+): UserProfile {
   const savedProfile = loadUserProfile(tokenEmail)
 
   if (savedProfile) {
@@ -25,24 +42,32 @@ function getInitialProfile(tokenEmail: string): UserProfile {
     fullName: "",
     email: tokenEmail,
     phoneNumber: "",
-    preferredLanguage: "FR",
+    preferredLanguage,
   }
 }
 
-function validateProfileForm(profile: UserProfile): ProfileFormErrors {
+function validateProfileForm(
+  profile: UserProfile,
+  messages: { requiredField: string },
+): ProfileFormErrors {
   if (!profile.fullName.trim()) {
-    return { fullName: requiredFieldMessage }
+    return { fullName: messages.requiredField }
   }
 
   return {}
 }
 
 function ProfilePage() {
+  const { t, i18n } = useTranslation()
   const authPayload = getValidAuthTokenPayload()
 
   const userEmail = useMemo(() => authPayload?.sub ?? "", [authPayload?.sub])
+  const defaultPreferredLanguage = useMemo(
+    () => getPreferredLanguageFromI18n(i18n.language),
+    [i18n.language],
+  )
   const [profile, setProfile] = useState<UserProfile>(() =>
-    getInitialProfile(userEmail),
+    getInitialProfile(userEmail, defaultPreferredLanguage),
   )
   const [profileErrors, setProfileErrors] = useState<ProfileFormErrors>({})
   const [successMessage, setSuccessMessage] = useState("")
@@ -57,7 +82,9 @@ function ProfilePage() {
   function submitProfileForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const nextErrors = validateProfileForm(profile)
+    const nextErrors = validateProfileForm(profile, {
+      requiredField: t("auth.requiredField"),
+    })
     setProfileErrors(nextErrors)
 
     if (Object.keys(nextErrors).length > 0) {
@@ -66,7 +93,8 @@ function ProfilePage() {
     }
 
     saveUserProfile(profile)
-    setSuccessMessage(profileSaveSuccessMessage)
+    i18n.changeLanguage(profile.preferredLanguage.toLowerCase())
+    setSuccessMessage(t("profile.saveSuccess"))
   }
 
   if (!authPayload) {
@@ -74,16 +102,16 @@ function ProfilePage() {
       <main className="px-4 py-16">
         <div className="mx-auto max-w-xl rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            Session expirée
+            {t("profile.sessionExpiredTitle")}
           </h1>
           <p className="mt-2 text-sm text-slate-600">
-            Ta session n'est plus valide. Merci de te reconnecter.
+            {t("profile.sessionExpiredMessage")}
           </p>
           <Link
             to="/login"
             className="mt-4 inline-flex rounded-lg bg-rose-900 px-4 py-2 text-sm font-medium text-white hover:bg-rose-800"
           >
-            Aller à la connexion
+            {t("profile.goToLogin")}
           </Link>
         </div>
       </main>
@@ -91,14 +119,12 @@ function ProfilePage() {
   }
 
   return (
-    <section className="px-4 py-16" aria-label="Profil utilisateur">
+    <section className="px-4 py-16" aria-label={t("nav.profile")}>
       <div className="mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-          Mon profil
+          {t("profile.title")}
         </h1>
-        <p className="mt-2 text-sm text-slate-600">
-          Mets à jour tes informations personnelles.
-        </p>
+        <p className="mt-2 text-sm text-slate-600">{t("profile.subtitle")}</p>
 
         <form
           className="mt-6 space-y-4"
@@ -110,7 +136,7 @@ function ProfilePage() {
               htmlFor="profile-full-name"
               className="mb-1 block text-sm font-medium text-slate-800"
             >
-              Nom complet
+              {t("auth.fullName")}
             </label>
             <input
               id="profile-full-name"
@@ -140,7 +166,7 @@ function ProfilePage() {
               htmlFor="profile-email"
               className="mb-1 block text-sm font-medium text-slate-800"
             >
-              Email
+              {t("auth.email")}
             </label>
             <input
               id="profile-email"
@@ -156,7 +182,7 @@ function ProfilePage() {
               htmlFor="profile-phone"
               className="mb-1 block text-sm font-medium text-slate-800"
             >
-              Téléphone
+              {t("profile.phoneNumber")}
             </label>
             <input
               id="profile-phone"
@@ -174,7 +200,7 @@ function ProfilePage() {
               htmlFor="profile-language"
               className="mb-1 block text-sm font-medium text-slate-800"
             >
-              Langue préférée
+              {t("profile.preferredLanguage")}
             </label>
             <select
               id="profile-language"
@@ -187,9 +213,9 @@ function ProfilePage() {
               }
               className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
             >
-              <option value="FR">Français</option>
-              <option value="EN">English</option>
-              <option value="ES">Español</option>
+              <option value="FR">{t("profile.languages.fr")}</option>
+              <option value="EN">{t("profile.languages.en")}</option>
+              <option value="ES">{t("profile.languages.es")}</option>
             </select>
           </div>
 
@@ -197,7 +223,7 @@ function ProfilePage() {
             type="submit"
             className="w-full rounded-lg bg-rose-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-rose-800"
           >
-            Mettre à jour mon profil
+            {t("profile.updateProfile")}
           </button>
 
           {successMessage ? (

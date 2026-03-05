@@ -1,4 +1,5 @@
 import { Outlet, Route, Routes } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import MainFooter from "./components/layout/MainFooter"
 import MainHeader from "./components/layout/MainHeader"
 
@@ -17,12 +18,22 @@ type PlaceholderPageProps = {
   path: string
 }
 
+<<<<<<< HEAD
+=======
+const adminPlaceholderRoute = {
+  path: "/admin",
+  titleKey: "nav.admin",
+}
+
+>>>>>>> 23e78e4a24c73e476a5a9f052d80b2cfcda5944d
 function PlaceholderPage({ title, path }: PlaceholderPageProps) {
+  const { t } = useTranslation()
+
   return (
     <main className="px-4 py-16">
       <div className="mx-auto max-w-xl rounded-2xl bg-white p-8 shadow-sm ring-1 ring-slate-200">
         <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
-        <p className="mt-3 text-slate-600">Route active: {path}</p>
+        <p className="mt-3 text-slate-600">{t("app.activeRoute", { path })}</p>
       </div>
     </main>
   )
@@ -41,6 +52,8 @@ function MainLayout() {
 }
 
 function App() {
+  const { t } = useTranslation()
+
   return (
     <Routes>
       <Route element={<MainLayout />}>
@@ -83,7 +96,14 @@ function App() {
           path="/admin"
           element={
             <RequireAdmin>
+<<<<<<< HEAD
               <PlaceholderPage title="Admin Panel" path="/admin" />
+=======
+              <PlaceholderPage
+                title={t(adminPlaceholderRoute.titleKey)}
+                path={adminPlaceholderRoute.path}
+              />
+>>>>>>> 23e78e4a24c73e476a5a9f052d80b2cfcda5944d
             </RequireAdmin>
           }
         />
