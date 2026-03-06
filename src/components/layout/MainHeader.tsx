@@ -30,58 +30,66 @@ function MainHeader() {
           Cookingmama
         </Link>
 
-        <nav className="flex items-center gap-2">
-          <NavLink to="/" className={navLinkClassName} end>
-            {t("nav.home")}
-          </NavLink>
-
-          {/* bouton réservation */}
-          <NavLink to="/reservation" className={navLinkClassName}>
-            {t("nav.reservation")}
-          </NavLink>
-
-          <NavLink to="/admin" className={navLinkClassName}>
-            {t("nav.admin")}
-          </NavLink>
-
-          <NavLink to="/login" className={navLinkClassName}>
-            {t("nav.login")}
-          </NavLink>
-
-          <NavLink to="/register" className={navLinkClassName}>
-            {t("nav.register")}
-          </NavLink>
-
-          {hasValidAuthToken ? (
-            <NavLink to="/profile" className={navLinkClassName}>
-              {t("nav.profile")}
+        <div className="flex items-center gap-3">
+          <nav className="flex items-center gap-2">
+            <NavLink to="/" className={navLinkClassName} end>
+              {t("nav.home")}
             </NavLink>
-          ) : null}
 
-          {hasValidAuthToken ? (
-            <NavLink to="/cart" className={navLinkClassName}>
-              {t("nav.cart")}
+            {/* bouton réservation */}
+            <NavLink to="/reservation" className={navLinkClassName}>
+              {t("nav.reservation")}
             </NavLink>
-          ) : null}
 
-          {hasValidAuthToken ? (
-            <NavLink to="/orders" className={navLinkClassName}>
-              {t("nav.myOrders")}
+            <NavLink to="/admin" className={navLinkClassName}>
+              {t("nav.admin")}
             </NavLink>
-          ) : null}
 
-          <LanguageSwitcher />
+            <NavLink to="/login" className={navLinkClassName}>
+              {t("nav.login")}
+            </NavLink>
 
-          {hasValidAuthToken ? (
-            <button
-              type="button"
-              onClick={logoutUser}
-              className="rounded-md bg-slate-900 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700"
-            >
-              {t("nav.logout")}
-            </button>
-          ) : null}
-        </nav>
+            <NavLink to="/register" className={navLinkClassName}>
+              {t("nav.register")}
+            </NavLink>
+
+            {hasValidAuthToken ? (
+              <NavLink to="/profile" className={navLinkClassName}>
+                {t("nav.profile")}
+              </NavLink>
+            ) : null}
+
+            {hasValidAuthToken ? (
+              <NavLink to="/cart" className={navLinkClassName}>
+                {t("nav.cart")}
+              </NavLink>
+            ) : null}
+
+            {hasValidAuthToken ? (
+              <NavLink to="/orders" className={navLinkClassName}>
+                {t("nav.myOrders")}
+              </NavLink>
+            ) : null}
+
+            <LanguageSwitcher />
+
+            {hasValidAuthToken ? (
+              <button
+                type="button"
+                onClick={logoutUser}
+                className="rounded-md bg-slate-900 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700"
+              >
+                {t("nav.logout")}
+              </button>
+            ) : null}
+          </nav>
+
+          <img
+            src="/favicon.svg"
+            alt="CookingMana logo"
+            className="h-10 w-10 rounded-full border border-rose-100 bg-white p-1"
+          />
+        </div>
       </div>
     </header>
   )
