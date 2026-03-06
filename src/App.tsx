@@ -5,6 +5,7 @@ import MainHeader from "./components/layout/MainHeader"
 import LoginPage from "./features/auth/LoginPage"
 import RegisterPage from "./features/auth/RegisterPage"
 import RequireAuth from "./features/auth/RequireAuth"
+import RequireAdmin from "./features/auth/RequireAdmin"
 import AdminLayout from "./features/admin/layout/AdminLayout"
 import AdminDashboardPage from "./features/admin/dashboard/AdminDashboardPage"
 import AdminProductsPage from "./features/admin/products/AdminProductsPage"
@@ -14,6 +15,10 @@ import AdminReservationsPage from "./features/admin/reservations/AdminReservatio
 import AdminOrdersPage from "./features/admin/orders/AdminOrdersPage"
 import HomePage from "./features/home/HomePage"
 import ProfilePage from "./features/profile/ProfilePage"
+import CartPage from "./features/orders/CartPage"
+import CheckoutPage from "./features/orders/CheckoutPage"
+import OrdersHistoryPage from "./features/orders/OrdersHistoryPage"
+import ReservationForm from "./components/reservation/ReservationForm"
 
 function MainLayout() {
   return (
@@ -38,6 +43,7 @@ function App() {
         {/* AUTH */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/reservation" element={<ReservationForm />} />
 
         {/* PROFILE (protected) */}
         <Route
@@ -48,10 +54,43 @@ function App() {
             </RequireAuth>
           }
         />
+
+        {/* ORDER FLOW (protected) */}
+        <Route
+          path="/cart"
+          element={
+            <RequireAuth>
+              <CartPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <RequireAuth>
+              <CheckoutPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <RequireAuth>
+              <OrdersHistoryPage />
+            </RequireAuth>
+          }
+        />
       </Route>
 
       {/* Routes admin — sans MainLayout, avec son propre layout */}
-      <Route path="/admin" element={<AdminLayout />}>
+      <Route
+        path="/admin"
+        element={
+          <RequireAdmin>
+            <AdminLayout />
+          </RequireAdmin>
+        }
+      >
         <Route index element={<AdminDashboardPage />} />
         <Route path="products" element={<AdminProductsPage />} />
         <Route path="categories" element={<AdminCategoriesPage />} />

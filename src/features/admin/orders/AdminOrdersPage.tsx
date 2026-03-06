@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import type { Order } from "./types/order"
 import { useOrders } from "./hooks/useOrder"
 import OrderTable from "./components/OrderTable"
@@ -11,6 +12,7 @@ type ModalState =
 
 // Page de gestion des commandes admin
 export default function AdminOrdersPage() {
+  const { t } = useTranslation()
   const { orders, addOrder, updateOrder, deleteOrder } = useOrders()
   const [modalState, setModalState] = useState<ModalState>({ type: "closed" })
 
@@ -39,13 +41,13 @@ export default function AdminOrdersPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-          Commandes
+          {t("admin.nav.orders")}
         </h1>
         <button
           onClick={openCreateModal}
           className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
         >
-          + Ajouter une commande
+          + {t("admin.orders.add")}
         </button>
       </div>
 
@@ -61,8 +63,8 @@ export default function AdminOrdersPage() {
           <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
             <h2 className="mb-4 text-lg font-semibold text-slate-900">
               {modalState.type === "create"
-                ? "Ajouter une commande"
-                : "Modifier la commande"}
+                ? t("admin.orders.add")
+                : t("admin.orders.edit")}
             </h2>
             <OrderForm
               initialData={

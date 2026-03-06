@@ -37,7 +37,7 @@ function MainHeader() {
 
           {/* bouton réservation */}
           <NavLink to="/reservation" className={navLinkClassName}>
-            Réserver
+            {t("nav.reservation")}
           </NavLink>
 
           <NavLink to="/admin" className={navLinkClassName}>
@@ -55,6 +55,18 @@ function MainHeader() {
           {hasValidAuthToken ? (
             <NavLink to="/profile" className={navLinkClassName}>
               {t("nav.profile")}
+            </NavLink>
+          ) : null}
+
+          {hasValidAuthToken ? (
+            <NavLink to="/cart" className={navLinkClassName}>
+              {t("nav.cart")}
+            </NavLink>
+          ) : null}
+
+          {hasValidAuthToken ? (
+            <NavLink to="/orders" className={navLinkClassName}>
+              {t("nav.myOrders")}
             </NavLink>
           ) : null}
 

@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react"
+import { useTranslation } from "react-i18next"
 import type { Product } from "../types/product"
 
 type ProductFormProps = {
@@ -47,6 +48,7 @@ export default function ProductForm({
   onSubmit,
   onCancel,
 }: ProductFormProps) {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState<Omit<Product, "id">>(
     initialData ?? EMPTY_FORM,
   )
@@ -65,7 +67,7 @@ export default function ProductForm({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <FormField label="Nom du plat">
+      <FormField label={t("admin.products.form.name")}>
         <input
           className={INPUT_CLASS}
           type="text"
@@ -75,7 +77,7 @@ export default function ProductForm({
         />
       </FormField>
 
-      <FormField label="Description">
+      <FormField label={t("admin.products.form.description")}>
         <textarea
           className={INPUT_CLASS}
           value={formData.description}
@@ -85,7 +87,7 @@ export default function ProductForm({
         />
       </FormField>
 
-      <FormField label="Prix (€)">
+      <FormField label={t("admin.products.form.price")}>
         <input
           className={INPUT_CLASS}
           type="number"
@@ -99,7 +101,7 @@ export default function ProductForm({
         />
       </FormField>
 
-      <FormField label="Catégorie">
+      <FormField label={t("admin.products.form.category")}>
         <input
           className={INPUT_CLASS}
           type="text"
@@ -109,7 +111,7 @@ export default function ProductForm({
         />
       </FormField>
 
-      <FormField label="URL de l'image">
+      <FormField label={t("admin.products.form.imageUrl")}>
         <input
           className={INPUT_CLASS}
           type="text"
@@ -118,7 +120,7 @@ export default function ProductForm({
         />
       </FormField>
 
-      <FormField label="Disponible">
+      <FormField label={t("admin.products.form.available")}>
         <input
           type="checkbox"
           checked={formData.isAvailable}
@@ -133,13 +135,13 @@ export default function ProductForm({
           onClick={onCancel}
           className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
         >
-          Annuler
+          {t("admin.common.cancel")}
         </button>
         <button
           type="submit"
           className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
         >
-          Enregistrer
+          {t("admin.common.save")}
         </button>
       </div>
     </form>

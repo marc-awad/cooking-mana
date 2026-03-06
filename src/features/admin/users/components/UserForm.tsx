@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react"
+import { useTranslation } from "react-i18next"
 import type { User, UserRole } from "../types/user"
 
 type UserFormProps = {
@@ -17,7 +18,13 @@ const INPUT_CLASS =
   "rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 w-full"
 
 // Champ de formulaire réutilisable
-function FormField({ label, children }: { label: string; children: React.ReactNode }) {
+function FormField({
+  label,
+  children,
+}: {
+  label: string
+  children: React.ReactNode
+}) {
   return (
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium text-slate-700">{label}</label>
@@ -27,9 +34,14 @@ function FormField({ label, children }: { label: string; children: React.ReactNo
 }
 
 // Formulaire de création et modification d'un utilisateur
-export default function UserForm({ initialData, onSubmit, onCancel }: UserFormProps) {
+export default function UserForm({
+  initialData,
+  onSubmit,
+  onCancel,
+}: UserFormProps) {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState<Omit<User, "id">>(
-    initialData ?? EMPTY_FORM
+    initialData ?? EMPTY_FORM,
   )
 
   function updateField(field: keyof Omit<User, "id">, value: string) {
@@ -43,7 +55,7 @@ export default function UserForm({ initialData, onSubmit, onCancel }: UserFormPr
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <FormField label="Nom">
+      <FormField label={t("admin.users.form.name")}>
         <input
           className={INPUT_CLASS}
           type="text"
@@ -53,7 +65,7 @@ export default function UserForm({ initialData, onSubmit, onCancel }: UserFormPr
         />
       </FormField>
 
-      <FormField label="Email">
+      <FormField label={t("admin.users.form.email")}>
         <input
           className={INPUT_CLASS}
           type="email"
@@ -63,14 +75,14 @@ export default function UserForm({ initialData, onSubmit, onCancel }: UserFormPr
         />
       </FormField>
 
-      <FormField label="Rôle">
+      <FormField label={t("admin.users.form.role")}>
         <select
           className={INPUT_CLASS}
           value={formData.role}
           onChange={(e) => updateField("role", e.target.value as UserRole)}
         >
-          <option value="user">Utilisateur</option>
-          <option value="admin">Administrateur</option>
+          <option value="user">{t("admin.users.form.userRole")}</option>
+          <option value="admin">{t("admin.users.form.adminRole")}</option>
         </select>
       </FormField>
 
@@ -80,13 +92,13 @@ export default function UserForm({ initialData, onSubmit, onCancel }: UserFormPr
           onClick={onCancel}
           className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
         >
-          Annuler
+          {t("admin.common.cancel")}
         </button>
         <button
           type="submit"
           className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
         >
-          Enregistrer
+          {t("admin.common.save")}
         </button>
       </div>
     </form>

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import type { Reservation } from "./types/reservation"
 import { useReservations } from "./hooks/useReservations"
 import ReservationTable from "./components/ReservationTable"
@@ -11,7 +12,9 @@ type ModalState =
 
 // Page de gestion des réservations admin
 export default function AdminReservationsPage() {
-  const { reservations, addReservation, updateReservation, deleteReservation } = useReservations()
+  const { t } = useTranslation()
+  const { reservations, addReservation, updateReservation, deleteReservation } =
+    useReservations()
   const [modalState, setModalState] = useState<ModalState>({ type: "closed" })
 
   function openCreateModal() {
@@ -39,13 +42,13 @@ export default function AdminReservationsPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-          Réservations
+          {t("admin.nav.reservations")}
         </h1>
         <button
           onClick={openCreateModal}
           className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
         >
-          + Ajouter une réservation
+          + {t("admin.reservations.add")}
         </button>
       </div>
 
@@ -60,10 +63,14 @@ export default function AdminReservationsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
             <h2 className="mb-4 text-lg font-semibold text-slate-900">
-              {modalState.type === "create" ? "Ajouter une réservation" : "Modifier la réservation"}
+              {modalState.type === "create"
+                ? t("admin.reservations.add")
+                : t("admin.reservations.edit")}
             </h2>
             <ReservationForm
-              initialData={modalState.type === "edit" ? modalState.reservation : undefined}
+              initialData={
+                modalState.type === "edit" ? modalState.reservation : undefined
+              }
               onSubmit={handleSubmit}
               onCancel={closeModal}
             />

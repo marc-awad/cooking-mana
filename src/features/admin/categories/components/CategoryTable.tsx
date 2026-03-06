@@ -1,4 +1,5 @@
 import type { Category } from "../types/category"
+import { useTranslation } from "react-i18next"
 
 type CategoryTableProps = {
   categories: Category[]
@@ -11,10 +12,14 @@ function CategoryRow({
   category,
   onEdit,
   onDelete,
+  editLabel,
+  deleteLabel,
 }: {
   category: Category
   onEdit: (category: Category) => void
   onDelete: (categoryId: string) => void
+  editLabel: string
+  deleteLabel: string
 }) {
   return (
     <tr className="border-b border-slate-100 hover:bg-slate-50">
@@ -25,13 +30,13 @@ function CategoryRow({
             onClick={() => onEdit(category)}
             className="rounded px-2 py-1 text-xs font-medium text-orange-600 hover:bg-orange-50"
           >
-            Modifier
+            {editLabel}
           </button>
           <button
             onClick={() => onDelete(category.id)}
             className="rounded px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50"
           >
-            Supprimer
+            {deleteLabel}
           </button>
         </div>
       </td>
@@ -40,17 +45,23 @@ function CategoryRow({
 }
 
 // Tableau listant toutes les catégories
-export default function CategoryTable({ categories, onEdit, onDelete }: CategoryTableProps) {
+export default function CategoryTable({
+  categories,
+  onEdit,
+  onDelete,
+}: CategoryTableProps) {
+  const { t } = useTranslation()
+
   return (
     <div className="overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
       <table className="w-full">
         <thead>
           <tr className="border-b border-slate-200 bg-slate-50">
             <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Nom
+              {t("admin.categories.form.name")}
             </th>
             <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Actions
+              {t("admin.common.actions")}
             </th>
           </tr>
         </thead>
@@ -61,6 +72,8 @@ export default function CategoryTable({ categories, onEdit, onDelete }: Category
               category={category}
               onEdit={onEdit}
               onDelete={onDelete}
+              editLabel={t("admin.common.edit")}
+              deleteLabel={t("admin.common.delete")}
             />
           ))}
         </tbody>

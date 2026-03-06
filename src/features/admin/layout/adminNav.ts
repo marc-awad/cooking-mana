@@ -1,13 +1,13 @@
 export type AdminNavItem = {
-  label: string
+  labelKey: string
   path: string
 }
 
 export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
-  { label: "Dashboard", path: "/admin" },
-  { label: "Produits", path: "/admin/products" },
-  { label: "Catégories", path: "/admin/categories" },
-  { label: "Utilisateurs", path: "/admin/users" },
-  { label: "Réservations", path: "/admin/reservations" },
-  { label: "Commandes", path: "/admin/orders" },
+  { labelKey: "admin.nav.dashboard", path: "/admin" },
+  { labelKey: "admin.nav.products", path: "/admin/products" },
+  { labelKey: "admin.nav.categories", path: "/admin/categories" },
+  { labelKey: "admin.nav.users", path: "/admin/users" },
+  { labelKey: "admin.nav.reservations", path: "/admin/reservations" },
+  { labelKey: "admin.nav.orders", path: "/admin/orders" },
 ]

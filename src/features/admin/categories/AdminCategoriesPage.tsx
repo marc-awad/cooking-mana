@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import type { Category } from "./types/category"
 import { useCategories } from "./hooks/useCategories"
 import CategoryTable from "./components/CategoryTable"
@@ -11,7 +12,9 @@ type ModalState =
 
 // Page CRUD des catégories admin
 export default function AdminCategoriesPage() {
-  const { categories, addCategory, updateCategory, deleteCategory } = useCategories()
+  const { t } = useTranslation()
+  const { categories, addCategory, updateCategory, deleteCategory } =
+    useCategories()
   const [modalState, setModalState] = useState<ModalState>({ type: "closed" })
 
   function openCreateModal() {
@@ -39,13 +42,13 @@ export default function AdminCategoriesPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-          Catégories
+          {t("admin.nav.categories")}
         </h1>
         <button
           onClick={openCreateModal}
           className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
         >
-          + Ajouter une catégorie
+          + {t("admin.categories.add")}
         </button>
       </div>
 
@@ -60,10 +63,14 @@ export default function AdminCategoriesPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
             <h2 className="mb-4 text-lg font-semibold text-slate-900">
-              {modalState.type === "create" ? "Ajouter une catégorie" : "Modifier la catégorie"}
+              {modalState.type === "create"
+                ? t("admin.categories.add")
+                : t("admin.categories.edit")}
             </h2>
             <CategoryForm
-              initialData={modalState.type === "edit" ? modalState.category : undefined}
+              initialData={
+                modalState.type === "edit" ? modalState.category : undefined
+              }
               onSubmit={handleSubmit}
               onCancel={closeModal}
             />

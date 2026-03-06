@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 import { ADMIN_NAV_ITEMS } from "./adminNav"
 
 // Lien de navigation individuel dans la sidebar
@@ -22,14 +23,20 @@ function SidebarNavLink({ label, path }: { label: string; path: string }) {
 
 // Sidebar de navigation du panel admin
 export default function AdminSidebar() {
+  const { t } = useTranslation()
+
   return (
     <aside className="flex h-full w-64 flex-col border-r border-slate-200 bg-white px-3 py-6">
       <p className="mb-6 px-4 text-xs font-semibold uppercase tracking-widest text-slate-400">
-        Administration
+        {t("admin.sidebar.title")}
       </p>
       <nav className="flex flex-col gap-1">
         {ADMIN_NAV_ITEMS.map((item) => (
-          <SidebarNavLink key={item.path} label={item.label} path={item.path} />
+          <SidebarNavLink
+            key={item.path}
+            label={t(item.labelKey)}
+            path={item.path}
+          />
         ))}
       </nav>
     </aside>

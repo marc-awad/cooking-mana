@@ -40,7 +40,7 @@ function HomePage() {
           to="/reservation"
           className="rounded-lg bg-rose-900 px-8 py-4 text-lg font-semibold text-white shadow-md transition hover:bg-rose-800"
         >
-          Réserver une table
+          {t("reservation.bookTableCta")}
         </Link>
       </div>
 

@@ -1,22 +1,24 @@
+import { useTranslation } from "react-i18next"
+
 export default function ReservationForm() {
+  const { t } = useTranslation()
+
   return (
     <main className="px-4 py-16">
       <div className="mx-auto max-w-lg rounded-2xl bg-white p-8 shadow-md ring-1 ring-slate-200">
-
         <h1 className="text-3xl font-bold text-center mb-6">
-          Réservation
+          {t("reservation.title")}
         </h1>
 
         <form className="flex flex-col gap-5">
-
           {/* Nom */}
           <div className="flex flex-col">
             <label className="text-sm font-medium text-slate-700">
-              Nom
+              {t("reservation.form.name")}
             </label>
             <input
               type="text"
-              placeholder="Votre nom"
+              placeholder={t("reservation.form.placeholders.name")}
               className="mt-1 rounded-lg border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-slate-400"
             />
           </div>
@@ -24,11 +26,11 @@ export default function ReservationForm() {
           {/* Email */}
           <div className="flex flex-col">
             <label className="text-sm font-medium text-slate-700">
-              Email
+              {t("reservation.form.email")}
             </label>
             <input
               type="email"
-              placeholder="votre@email.com"
+              placeholder={t("reservation.form.placeholders.email")}
               className="mt-1 rounded-lg border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-slate-400"
             />
           </div>
@@ -36,7 +38,7 @@ export default function ReservationForm() {
           {/* Date */}
           <div className="flex flex-col">
             <label className="text-sm font-medium text-slate-700">
-              Date
+              {t("reservation.form.date")}
             </label>
             <input
               type="date"
@@ -48,7 +50,7 @@ export default function ReservationForm() {
           {/* Heure */}
           <div className="flex flex-col">
             <label className="text-sm font-medium text-slate-700">
-              Heure
+              {t("reservation.form.time")}
             </label>
             <input
               type="time"
@@ -59,13 +61,13 @@ export default function ReservationForm() {
           {/* Nombre de personnes */}
           <div className="flex flex-col">
             <label className="text-sm font-medium text-slate-700">
-              Nombre de personnes
+              {t("reservation.form.guests")}
             </label>
             <input
               type="number"
               min="1"
               max="20"
-              placeholder="Ex: 4"
+              placeholder={t("reservation.form.placeholders.guests")}
               className="mt-1 rounded-lg border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-slate-400"
             />
           </div>
@@ -73,10 +75,10 @@ export default function ReservationForm() {
           {/* Message */}
           <div className="flex flex-col">
             <label className="text-sm font-medium text-slate-700">
-              Message (optionnel)
+              {t("reservation.form.messageOptional")}
             </label>
             <textarea
-              placeholder="Allergies, demande spéciale..."
+              placeholder={t("reservation.form.placeholders.message")}
               rows={3}
               className="mt-1 rounded-lg border border-slate-300 p-2 focus:outline-none focus:ring-2 focus:ring-slate-400"
             />
@@ -87,9 +89,8 @@ export default function ReservationForm() {
             type="submit"
             className="mt-4 rounded-lg bg-slate-900 text-white py-2 font-medium hover:bg-slate-700 transition"
           >
-            Réserver une table
+            {t("reservation.bookTableCta")}
           </button>
-
         </form>
       </div>
     </main>

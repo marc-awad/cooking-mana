@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react"
+import { useTranslation } from "react-i18next"
 import type { Order, OrderStatus } from "../types/order"
 
 type OrderFormProps = {
@@ -46,6 +47,7 @@ export default function OrderForm({
   onSubmit,
   onCancel,
 }: OrderFormProps) {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState<Omit<Order, "id">>(
     initialData ?? EMPTY_FORM,
   )
@@ -77,7 +79,7 @@ export default function OrderForm({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <FormField label="Nom du client">
+      <FormField label={t("admin.orders.form.clientName")}>
         <input
           className={INPUT_CLASS}
           type="text"
@@ -87,7 +89,7 @@ export default function OrderForm({
         />
       </FormField>
 
-      <FormField label="Email du client">
+      <FormField label={t("admin.orders.form.clientEmail")}>
         <input
           className={INPUT_CLASS}
           type="email"
@@ -97,18 +99,18 @@ export default function OrderForm({
         />
       </FormField>
 
-      <FormField label="Plats commandés (séparés par des virgules)">
+      <FormField label={t("admin.orders.form.items")}>
         <input
           className={INPUT_CLASS}
           type="text"
           value={itemsInput}
           onChange={(event) => handleItemsChange(event.target.value)}
-          placeholder="Gratin dauphinois, Tarte aux pommes..."
+          placeholder={t("admin.orders.form.itemsPlaceholder")}
           required
         />
       </FormField>
 
-      <FormField label="Prix total (€)">
+      <FormField label={t("admin.orders.form.totalPrice")}>
         <input
           className={INPUT_CLASS}
           type="number"
@@ -122,7 +124,7 @@ export default function OrderForm({
         />
       </FormField>
 
-      <FormField label="Statut">
+      <FormField label={t("admin.common.status")}>
         <select
           className={INPUT_CLASS}
           value={formData.status}
@@ -130,10 +132,10 @@ export default function OrderForm({
             updateField("status", event.target.value as OrderStatus)
           }
         >
-          <option value="en_attente">En attente</option>
-          <option value="en_cours">En cours</option>
-          <option value="livree">Livrée</option>
-          <option value="annulee">Annulée</option>
+          <option value="en_attente">{t("admin.status.pending")}</option>
+          <option value="en_cours">{t("admin.status.inProgress")}</option>
+          <option value="livree">{t("admin.status.delivered")}</option>
+          <option value="annulee">{t("admin.status.cancelled")}</option>
         </select>
       </FormField>
 
@@ -143,13 +145,13 @@ export default function OrderForm({
           onClick={onCancel}
           className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
         >
-          Annuler
+          {t("admin.common.cancel")}
         </button>
         <button
           type="submit"
           className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
         >
-          Enregistrer
+          {t("admin.common.save")}
         </button>
       </div>
     </form>

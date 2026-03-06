@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react"
+import { useTranslation } from "react-i18next"
 import type { Category } from "../types/category"
 
 type CategoryFormProps = {
@@ -11,7 +12,12 @@ const INPUT_CLASS =
   "rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 w-full"
 
 // Formulaire de création et modification d'une catégorie
-export default function CategoryForm({ initialData, onSubmit, onCancel }: CategoryFormProps) {
+export default function CategoryForm({
+  initialData,
+  onSubmit,
+  onCancel,
+}: CategoryFormProps) {
+  const { t } = useTranslation()
   const [name, setName] = useState(initialData?.name ?? "")
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -23,7 +29,7 @@ export default function CategoryForm({ initialData, onSubmit, onCancel }: Catego
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
         <label className="text-sm font-medium text-slate-700">
-          Nom de la catégorie
+          {t("admin.categories.form.name")}
         </label>
         <input
           className={INPUT_CLASS}
@@ -40,13 +46,13 @@ export default function CategoryForm({ initialData, onSubmit, onCancel }: Catego
           onClick={onCancel}
           className="rounded-lg px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100"
         >
-          Annuler
+          {t("admin.common.cancel")}
         </button>
         <button
           type="submit"
           className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600"
         >
-          Enregistrer
+          {t("admin.common.save")}
         </button>
       </div>
     </form>
