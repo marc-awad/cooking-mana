@@ -190,6 +190,8 @@ export const resources = {
             guests: "Ex: 4",
             message: "Allergies, demande spéciale...",
           },
+          success:
+            "Votre réservation a bien été enregistrée ! Nous vous confirmerons sous peu.",
         },
       },
       orders: {
@@ -520,6 +522,8 @@ export const resources = {
             guests: "Ex: 4",
             message: "Allergies, special request...",
           },
+          success:
+            "Your reservation has been recorded! We will confirm it shortly.",
         },
       },
       orders: {
@@ -850,6 +854,7 @@ export const resources = {
             guests: "Ej: 4",
             message: "Alergias, petición especial...",
           },
+          success: "¡Tu reserva ha sido registrada! Te confirmaremos en breve.",
         },
       },
       orders: {

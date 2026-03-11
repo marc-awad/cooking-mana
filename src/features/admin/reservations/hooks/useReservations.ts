@@ -5,8 +5,23 @@ import type { Reservation } from "../types/reservation"
 import { generateEntityId } from "../../shared/generateEntityId"
 
 export function useReservations() {
-  const [reservations, setReservations] =
-    useState<Reservation[]>(INITIAL_RESERVATIONS)
+  const [reservations, setReservationsRaw] = useState<Reservation[]>(() => {
+    try {
+      const raw = localStorage.getItem("admin_reservations")
+      if (raw) return JSON.parse(raw) as Reservation[]
+    } catch {
+      /* ignore */
+    }
+    return INITIAL_RESERVATIONS
+  })
+
+  function setReservations(updater: (prev: Reservation[]) => Reservation[]) {
+    setReservationsRaw((prev) => {
+      const next = updater(prev)
+      localStorage.setItem("admin_reservations", JSON.stringify(next))
+      return next
+    })
+  }
 
   // Ajoute une nouvelle réservation
   function addReservation(newReservation: Omit<Reservation, "id">) {

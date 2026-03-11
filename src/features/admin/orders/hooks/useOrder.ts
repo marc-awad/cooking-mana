@@ -4,7 +4,23 @@ import type { Order } from "../types/order"
 import { generateEntityId } from "../../shared/generateEntityId"
 
 export function useOrders() {
-  const [orders, setOrders] = useState<Order[]>(INITIAL_ORDERS)
+  const [orders, setOrdersRaw] = useState<Order[]>(() => {
+    try {
+      const raw = localStorage.getItem("admin_orders")
+      if (raw) return JSON.parse(raw) as Order[]
+    } catch {
+      /* ignore */
+    }
+    return INITIAL_ORDERS
+  })
+
+  function setOrders(updater: (prev: Order[]) => Order[]) {
+    setOrdersRaw((prev) => {
+      const next = updater(prev)
+      localStorage.setItem("admin_orders", JSON.stringify(next))
+      return next
+    })
+  }
 
   // Ajoute une nouvelle commande
   function addOrder(newOrder: Omit<Order, "id">) {

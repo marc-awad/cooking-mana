@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
 import AuthField from "./components/AuthField"
 import AuthFormContainer from "./components/AuthFormContainer"
@@ -64,6 +65,7 @@ function validateRegisterForm(
 
 function RegisterPage() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [formData, setFormData] = useState<RegisterFormData>(
     initialRegisterFormData,
   )
@@ -102,6 +104,7 @@ function RegisterPage() {
 
     saveAuthToken(demoToken)
     setSuccessMessage(t("auth.registerSuccess"))
+    setTimeout(() => navigate("/"), 1500)
   }
 
   return (

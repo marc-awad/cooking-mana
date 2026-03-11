@@ -4,7 +4,23 @@ import type { Product } from "../types/product"
 import { generateEntityId } from "../../shared/generateEntityId"
 
 export function useProducts() {
-  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS)
+  const [products, setProductsRaw] = useState<Product[]>(() => {
+    try {
+      const raw = localStorage.getItem("admin_products")
+      if (raw) return JSON.parse(raw) as Product[]
+    } catch {
+      /* ignore */
+    }
+    return INITIAL_PRODUCTS
+  })
+
+  function setProducts(updater: (prev: Product[]) => Product[]) {
+    setProductsRaw((prev) => {
+      const next = updater(prev)
+      localStorage.setItem("admin_products", JSON.stringify(next))
+      return next
+    })
+  }
 
   // Ajoute un nouveau produit
   function addProduct(newProduct: Omit<Product, "id">) {

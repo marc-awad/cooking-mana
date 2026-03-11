@@ -5,7 +5,6 @@ import MainHeader from "./components/layout/MainHeader"
 import LoginPage from "./features/auth/LoginPage"
 import RegisterPage from "./features/auth/RegisterPage"
 import RequireAuth from "./features/auth/RequireAuth"
-import RequireAdmin from "./features/auth/RequireAdmin"
 import AdminLayout from "./features/admin/layout/AdminLayout"
 import AdminDashboardPage from "./features/admin/dashboard/AdminDashboardPage"
 import AdminProductsPage from "./features/admin/products/AdminProductsPage"
@@ -19,6 +18,26 @@ import CartPage from "./features/orders/CartPage"
 import CheckoutPage from "./features/orders/CheckoutPage"
 import OrdersHistoryPage from "./features/orders/OrdersHistoryPage"
 import ReservationForm from "./components/reservation/ReservationForm"
+
+function NotFoundPage() {
+  return (
+    <main className="flex flex-1 flex-col items-center justify-center py-24 text-center">
+      <p className="text-6xl font-bold text-slate-300">404</p>
+      <h1 className="mt-4 text-2xl font-semibold text-slate-700">
+        Page introuvable
+      </h1>
+      <p className="mt-2 text-slate-500">
+        Cette page n'existe pas ou a été déplacée.
+      </p>
+      <a
+        href="/"
+        className="mt-6 rounded-lg bg-slate-900 px-6 py-2 text-sm text-white hover:bg-slate-700 transition"
+      >
+        Retour à l'accueil
+      </a>
+    </main>
+  )
+}
 
 function MainLayout() {
   return (
@@ -80,17 +99,12 @@ function App() {
             </RequireAuth>
           }
         />
+
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
 
       {/* Routes admin — sans MainLayout, avec son propre layout */}
-      <Route
-        path="/admin"
-        element={
-          <RequireAdmin>
-            <AdminLayout />
-          </RequireAdmin>
-        }
-      >
+      <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminDashboardPage />} />
         <Route path="products" element={<AdminProductsPage />} />
         <Route path="categories" element={<AdminCategoriesPage />} />

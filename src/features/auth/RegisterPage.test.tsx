@@ -1,4 +1,5 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react"
+import { MemoryRouter } from "react-router-dom"
 import { afterEach, describe, expect, it } from "vitest"
 import RegisterPage from "./RegisterPage"
 import { authTokenStorageKey } from "./jwtToken"
@@ -10,7 +11,11 @@ afterEach(() => {
 
 describe("RegisterPage", () => {
   it("shows password mismatch error", () => {
-    render(<RegisterPage />)
+    render(
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>,
+    )
 
     fireEvent.change(screen.getByLabelText("Nom complet"), {
       target: { value: "Jean Dupont" },
@@ -32,7 +37,11 @@ describe("RegisterPage", () => {
   })
 
   it("shows success message when form is valid", () => {
-    render(<RegisterPage />)
+    render(
+      <MemoryRouter>
+        <RegisterPage />
+      </MemoryRouter>,
+    )
 
     fireEvent.change(screen.getByLabelText("Nom complet"), {
       target: { value: "Jean Dupont" },

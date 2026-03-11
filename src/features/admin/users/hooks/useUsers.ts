@@ -4,7 +4,23 @@ import type { User } from "../types/user"
 import { generateEntityId } from "../../shared/generateEntityId"
 
 export function useUsers() {
-  const [users, setUsers] = useState<User[]>(INITIAL_USERS)
+  const [users, setUsersRaw] = useState<User[]>(() => {
+    try {
+      const raw = localStorage.getItem("admin_users")
+      if (raw) return JSON.parse(raw) as User[]
+    } catch {
+      /* ignore */
+    }
+    return INITIAL_USERS
+  })
+
+  function setUsers(updater: (prev: User[]) => User[]) {
+    setUsersRaw((prev) => {
+      const next = updater(prev)
+      localStorage.setItem("admin_users", JSON.stringify(next))
+      return next
+    })
+  }
 
   // Ajoute un nouvel utilisateur
   function addUser(newUser: Omit<User, "id">) {

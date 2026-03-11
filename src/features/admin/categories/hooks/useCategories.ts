@@ -4,7 +4,23 @@ import type { Category } from "../types/category"
 import { generateEntityId } from "../../shared/generateEntityId"
 
 export function useCategories() {
-  const [categories, setCategories] = useState<Category[]>(INITIAL_CATEGORIES)
+  const [categories, setCategoriesRaw] = useState<Category[]>(() => {
+    try {
+      const raw = localStorage.getItem("admin_categories")
+      if (raw) return JSON.parse(raw) as Category[]
+    } catch {
+      /* ignore */
+    }
+    return INITIAL_CATEGORIES
+  })
+
+  function setCategories(updater: (prev: Category[]) => Category[]) {
+    setCategoriesRaw((prev) => {
+      const next = updater(prev)
+      localStorage.setItem("admin_categories", JSON.stringify(next))
+      return next
+    })
+  }
 
   // Ajoute une nouvelle catégorie
   function addCategory(name: string) {

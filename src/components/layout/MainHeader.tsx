@@ -25,8 +25,13 @@ function MainHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link
           to="/"
-          className="text-lg font-semibold tracking-wide text-rose-900"
+          className="flex items-center gap-2 text-lg font-semibold tracking-wide text-rose-900"
         >
+          <img
+            src="/favicon.svg"
+            alt="CookingMana logo"
+            className="h-8 w-8 rounded-full border border-rose-100 bg-white p-0.5"
+          />
           Cookingmama
         </Link>
 
@@ -41,35 +46,31 @@ function MainHeader() {
               {t("nav.reservation")}
             </NavLink>
 
-            <NavLink to="/admin" className={navLinkClassName}>
-              {t("nav.admin")}
-            </NavLink>
-
-            <NavLink to="/login" className={navLinkClassName}>
-              {t("nav.login")}
-            </NavLink>
-
-            <NavLink to="/register" className={navLinkClassName}>
-              {t("nav.register")}
-            </NavLink>
-
             {hasValidAuthToken ? (
-              <NavLink to="/profile" className={navLinkClassName}>
-                {t("nav.profile")}
-              </NavLink>
-            ) : null}
+              <>
+                <NavLink to="/profile" className={navLinkClassName}>
+                  {t("nav.profile")}
+                </NavLink>
 
-            {hasValidAuthToken ? (
-              <NavLink to="/cart" className={navLinkClassName}>
-                {t("nav.cart")}
-              </NavLink>
-            ) : null}
+                <NavLink to="/cart" className={navLinkClassName}>
+                  {t("nav.cart")}
+                </NavLink>
 
-            {hasValidAuthToken ? (
-              <NavLink to="/orders" className={navLinkClassName}>
-                {t("nav.myOrders")}
-              </NavLink>
-            ) : null}
+                <NavLink to="/orders" className={navLinkClassName}>
+                  {t("nav.myOrders")}
+                </NavLink>
+              </>
+            ) : (
+              <>
+                <NavLink to="/login" className={navLinkClassName}>
+                  {t("nav.login")}
+                </NavLink>
+
+                <NavLink to="/register" className={navLinkClassName}>
+                  {t("nav.register")}
+                </NavLink>
+              </>
+            )}
 
             <LanguageSwitcher />
 
@@ -83,12 +84,6 @@ function MainHeader() {
               </button>
             ) : null}
           </nav>
-
-          <img
-            src="/favicon.svg"
-            alt="CookingMana logo"
-            className="h-10 w-10 rounded-full border border-rose-100 bg-white p-1"
-          />
         </div>
       </div>
     </header>
